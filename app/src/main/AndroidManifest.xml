@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Finanzen" />
+        <activity android:name=".Einkaufsliste" />
+        <activity android:name=".toDoList" />
+        <activity android:name=".Settings" />
+        <activity android:name=".FotoWand" />
+        <activity android:name=".Putzplan"></activity>
     </application>
 
 </manifest>

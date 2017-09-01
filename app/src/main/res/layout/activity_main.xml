@@ -1,18 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ur.mi.android.wgplus05.MainActivity">
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/einkaufsliste_button"
+            android:text="myWG"
+            android:src="@drawable/ic_shopping_cart_black_24dp"
+            />
+        <ImageButton
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/finanzen_button"
+            android:text="finanzen"
+            android:src="@drawable/ic_monetization_on_black_24dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/blackboard_button"
+            android:text="blackboard_button"
+            android:src="@drawable/ic_add_a_photo_black_24dp"
+
+
+            />
+        <ImageButton
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/putzplan_button"
+            android:text="putzplan_button"
+            android:src="@drawable/ic_brush_black_24dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/kalender_button"
+            android:text="kalender_button"
+            android:src="@drawable/ic_event_available_black_24dp"
+            />
+        <ImageButton
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/einstellungen_button"
+            android:text="settings_button"
+            android:src="@drawable/ic_settings_black_24dp"
+
+            />
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
