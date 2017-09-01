@@ -15,14 +15,15 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <ImageButton
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
             android:id="@+id/einkaufsliste_button"
-            android:text="myWG"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:src="@drawable/ic_shopping_cart_black_24dp"
-            />
+            android:text="myWG" />
+
         <ImageButton
             android:layout_height="match_parent"
             android:layout_width="0dp"
@@ -38,16 +39,18 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <ImageButton
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
             android:id="@+id/blackboard_button"
-            android:text="blackboard_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:src="@drawable/ic_add_a_photo_black_24dp"
+            android:text="blackboard_button"
 
 
             />
+
         <ImageButton
             android:layout_height="match_parent"
             android:layout_width="0dp"

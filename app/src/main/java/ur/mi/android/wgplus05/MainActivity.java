@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity {
 
 
-
     private ImageButton finanzenButton;
     private ImageButton einkaufslisteButton;
     private ImageButton kalenderButton;
