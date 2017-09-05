@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:fillViewport="false"
     >
 
 
@@ -13,8 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,10 +46,9 @@
 
                 <TextView
                     android:id="@+id/lastMonth"
-                    android:layout_width="262dp"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:text="lastMonth"
-                    android:textColor="@color/Black"
                     android:textSize="25dp"
 
                     />
@@ -73,8 +72,8 @@
                 <ListView
                     android:id="@+id/list_lastMonth_kueche"
                     android:layout_width="194dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
 
                     >
 
@@ -85,7 +84,7 @@
                     android:id="@+id/list_lastMonth_bad"
                     android:layout_width="194dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryDark">
+                    android:background="@color/colorAccent">
 
 
                 </ListView>
@@ -99,10 +98,9 @@
 
                 <TextView
                     android:id="@+id/thisMonth"
-                    android:layout_width="262dp"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:text="thisMonth"
-                    android:textColor="@color/Black"
                     android:textSize="25dp"
 
                     />
@@ -126,13 +124,13 @@
                     android:id="@+id/list_thistMonth_kueche"
                     android:layout_width="194dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"></ListView>
+                    android:background="@color/colorPrimary"></ListView>
 
                 <ListView
                     android:id="@+id/list_thisMonth_bad"
                     android:layout_width="194dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryDark">
+                    android:background="@color/colorAccent">
 
 
                 </ListView>
@@ -146,10 +144,9 @@
 
                 <TextView
                     android:id="@+id/nextonth"
-                    android:layout_width="250dp"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:text="nextMonth"
-                    android:textColor="@color/Black"
                     android:textSize="25dp"
 
                     />
@@ -173,18 +170,18 @@
                     android:id="@+id/list_nexttMonth_kueche"
                     android:layout_width="194dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"></ListView>
+                    android:background="@color/colorPrimary"></ListView>
 
                 <ListView
                     android:id="@+id/list_nextMonth_bad"
                     android:layout_width="194dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryDark">
+                    android:background="@color/colorAccent">
 
 
                 </ListView>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 
