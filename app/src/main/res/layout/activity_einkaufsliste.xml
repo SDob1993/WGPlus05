@@ -1,9 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ur.mi.android.wgplus05.Einkaufsliste">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ur.mi.android.wgplus05.Einkaufsliste"
 
-</android.support.constraint.ConstraintLayout>
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:scaleType = "centerCrop"
+        android:scaleY="1.3"
+        android:src="@drawable/paper"
+        android:alpha="0.7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Was brauchen wir noch?"
+            android:textColor="@color/Black"
+            android:textSize="30dp"
+            android:layout_gravity="top|center_horizontal"
+            android:textStyle="bold"
+            />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/einkaufsliste"
+            >
+
+        </ListView>
+
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/myFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/einkaufsliste_plus"
+        android:layout_margin="15dp"
+        android:layout_gravity="bottom|end"
+        android:clickable="true"
+        android:background=""/>
+
+
+
+</FrameLayout>
