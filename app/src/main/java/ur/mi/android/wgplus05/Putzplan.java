@@ -61,18 +61,22 @@ public class Putzplan extends ActionBarActivity {
     private ListView ListUserNextMonthKueche;
     private ListView ListUserNextMonthBad;
 
+    private MyDatabaseAdapter db_adapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_putzplan);
+        setTitle("#EinerMussesMachen");
 
-        initTextViews();
+        //initTextViews();
         initListViews();
         initButtons();
         initOnClickListener();
         setUpListViews();
+       // initDB();
 
 
     }
@@ -82,7 +86,7 @@ public class Putzplan extends ActionBarActivity {
         return monthNames[month];
     }
 
-    private void initTextViews(){
+   /* private void initTextViews(){
         if(Integer.valueOf(Build.VERSION.SDK_INT) > 23) {
             Calendar c = Calendar.getInstance();
             lastMonth = (TextView) findViewById(R.id.lastMonth);
@@ -93,6 +97,15 @@ public class Putzplan extends ActionBarActivity {
             nextMonth.setText(getStringMonth(c.get(Calendar.MONTH)+1));
 
         }
+    } */
+
+    private void initDB(){
+        db_adapter.open();
+        updateList();
+    }
+
+    private void updateList(){
+
     }
 
     private void setUpListViews(){
@@ -232,6 +245,20 @@ public class Putzplan extends ActionBarActivity {
             }
         });
 
+    }
+
+    private void removeTaskAtPositionKueche(int position) {
+        if (currentArrayListUserKueche.get(position) != null) {
+            currentArrayListUserKueche.remove(position);
+            currentArrayAdapterListUserKueche.notifyDataSetChanged();
+        }
+    }
+
+    private void removeTaskAtPositionBad(int position) {
+        if (currentArrayListUserBad.get(position) != null) {
+            currentArrayListUserBad.remove(position);
+            currentArrayAdapterListUserBad.notifyDataSetChanged();
+        }
     }
 
 }

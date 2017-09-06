@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton putzplanButton;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         initButtons();
         initOnClickListener();
-
 
     }
 
