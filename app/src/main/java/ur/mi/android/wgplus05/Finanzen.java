@@ -9,7 +9,7 @@ public class Finanzen extends AppCompatActivity {
 
     private TextView guthaben;
     private TextView guthabenAnzeige;
-    private double guthabenInt;
+    private double guthabenDouble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +22,13 @@ public class Finanzen extends AppCompatActivity {
         guthaben.setTypeface(myTypeface);
         guthabenAnzeige = (TextView)findViewById(R.id.guthabenAnzeige);
         guthabenAnzeige.setTypeface(myTypeface);
+    }
+
+    public double getGuthabenDouble(){
+        return guthabenDouble;
+    }
+
+    public void addGuthabenDouble(double guthabenPlus){
+        guthabenDouble = guthabenDouble + guthabenPlus;
     }
 }

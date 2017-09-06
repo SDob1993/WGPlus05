@@ -12,8 +12,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_einkaufsliste"
+        android:id="@+id/edit_einkaufsliste_preis"
         android:layout_margin="20dp"
+        android:hint="Was kostet der Fisch?"
+        android:inputType="number"
 
         />
 
@@ -21,10 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="ADD"
+        android:text="Remove"
         android:background="@color/colorAccent"
         android:layout_margin="20dp"
-        android:id="@+id/einkaufsliste_popup_button"
+        android:id="@+id/einkaufsliste_popup_button_remove"
         />
 
 </LinearLayout>
