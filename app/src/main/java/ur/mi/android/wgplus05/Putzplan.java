@@ -1,10 +1,6 @@
 package ur.mi.android.wgplus05;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.icu.util.Calendar;
-import android.icu.util.GregorianCalendar;
-import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,7 +8,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -20,9 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
 
 public class Putzplan extends ActionBarActivity {
 
@@ -191,7 +183,7 @@ public class Putzplan extends ActionBarActivity {
 
     public void showPopup(View anchorView) {
 
-        final View popupView = getLayoutInflater().inflate(R.layout.layout_user_popup, null);
+        final View popupView = getLayoutInflater().inflate(R.layout.layout_user_popup_putzplan, null);
 
         final PopupWindow popupWindow = new PopupWindow(popupView,
                 ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
