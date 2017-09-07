@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         kalenderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,toDoList.class);
+                Intent intent = new Intent(MainActivity.this,Kalender.class);
                 startActivity(intent);
             }
         });
