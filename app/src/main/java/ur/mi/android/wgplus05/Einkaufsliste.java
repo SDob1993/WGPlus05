@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class Einkaufsliste extends AppCompatActivity {
     private ArrayList einkaufslisteArrayList;
     private ArrayAdapter aa;
     private FrameLayout mainLayout;
+    private TextView wasbrauchenwirnoch;
+    private TextView listViewElement;
 
 
 
@@ -48,9 +51,11 @@ public class Einkaufsliste extends AppCompatActivity {
         setupButton();
         setUpListView();
         setUpListView();
+        setUpTextView();
         setUpListViewAdapter();
+        setUpLayout();
 
-        mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);
+
 
 
     }
@@ -66,6 +71,10 @@ public class Einkaufsliste extends AppCompatActivity {
 
     }
 
+    private void setUpLayout(){
+        mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);
+    }
+
     private void setUpListView(){
         einkaufsliste = (ListView) findViewById(R.id.einkaufsliste);
         einkaufsliste.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -77,11 +86,20 @@ public class Einkaufsliste extends AppCompatActivity {
                 return true;
             }
         });
+
+    }
+
+    private void setUpTextView(){
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "IndieFlower.ttf");
+        wasbrauchenwirnoch = (TextView)findViewById(R.id.wasbrauchenwirnoch);
+        wasbrauchenwirnoch.setTypeface(myTypeface);
+        /*listViewElement = (TextView)findViewById(R.id.listViewEdit);
+        listViewElement.setTypeface(myTypeface);*/
     }
 
     private void setUpListViewAdapter(){
         einkaufslisteArrayList = new ArrayList<String>();
-        aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,einkaufslisteArrayList);
+        aa = new ArrayAdapter<String>(this, R.layout.listview_edit,einkaufslisteArrayList);
         einkaufsliste.setAdapter(aa);
 
     }
@@ -156,6 +174,7 @@ public class Einkaufsliste extends AppCompatActivity {
                     Finanzen finanzen = new Finanzen();
                     finanzen.addGuthabenDouble(Double.parseDouble(preis));
                     popupWindow.dismiss();
+                    Toast.makeText(getApplicationContext(),"Dank dir fürs Einkaufen!",Toast.LENGTH_LONG).show();
                 }
                 else Toast.makeText(getApplicationContext(),"Dann gibts halt wieder Nudeln",Toast.LENGTH_LONG).show();
                 Log.d("preis",preis);
