@@ -5,10 +5,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -183,40 +186,32 @@ public class Putzplan extends ActionBarActivity {
 
     public void showPopup(View anchorView) {
 
-        final View popupView = getLayoutInflater().inflate(R.layout.layout_user_popup_putzplan, null);
-
-        final PopupWindow popupWindow = new PopupWindow(popupView,
-                ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0);
-
 
         // Example: If you have a TextView inside `popup_layout.xml`
+
+
+        // get a reference to the already created main layout
+        FrameLayout mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.layout_user_popup_einkaufsliste, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+
+        // show the popup window
+        popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
         final EditText editText1 = (EditText) popupView.findViewById(R.id.edit1);
 
         final EditText editText2 = (EditText) popupView.findViewById(R.id.edit2);
 
         final Button button = (Button) popupView.findViewById(R.id.ok_button);
-
-
-
-
-
-        // If the PopupWindow should be focusable
-        popupWindow.setFocusable(true);
-        popupWindow.update();
-
-
-        // If you need the PopupWindow to dismiss when when touched outside
-        popupWindow.setBackgroundDrawable(new ColorDrawable());
-
-        int location[] = new int[2];
-
-        // Get the View's(the one that was clicked in the Fragment) location
-        anchorView.getLocationOnScreen(location);
-
-        // Using location, the PopupWindow will be displayed right under anchorView
-        popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
-                location[0], location[1] + anchorView.getHeight());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/edit_einkaufsliste"
         android:layout_margin="20dp"
-
+        android:maxLines="1"
+        android:inputType="text"
         />
 
     <Button
