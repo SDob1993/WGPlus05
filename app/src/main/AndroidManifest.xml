@@ -21,11 +21,10 @@
         <activity android:name=".toDoList" />
         <activity android:name=".Settings" />
         <activity android:name=".FotoWand" />
-        <activity android:name=".Putzplan"
-            android:windowSoftInputMode="adjustResize"
-            >
-
-        </activity>
+        <activity
+            android:name=".Putzplan"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".Kalender"></activity>
     </application>
 
 </manifest>
