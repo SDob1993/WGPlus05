@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activty_putzplan"
     >
 
     <ImageView
@@ -31,20 +32,25 @@
         android:textSize="39dp"
         />
 
+    <ListView
+        android:id="@+id/list_putzplan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:layout_marginTop="150dp"></ListView>
+
     <ImageButton
+        android:id="@+id/button_add_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/einkaufsliste_plus"
-        android:background="?android:selectableItemBackground"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="?android:selectableItemBackground"
         android:backgroundTint="@color/Black"
         android:elevation="10dp"
         android:scaleX="0.8"
         android:scaleY="0.8"
-        />
-
-
+        android:src="@drawable/einkaufsliste_plus" />
 
 
 </FrameLayout>

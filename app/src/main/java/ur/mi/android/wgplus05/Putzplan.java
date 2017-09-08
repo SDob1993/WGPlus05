@@ -1,5 +1,8 @@
 package ur.mi.android.wgplus05;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -7,195 +10,103 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Putzplan extends ActionBarActivity {
 
-    private Button addUserLastMonth;
-    private Button addUserThisMonth;
-    private Button addUserNextMonth;
+    private ImageButton addUser;
 
-    private TextView lastMonth;
-    private TextView thisMonth;
-    private TextView nextMonth;
+    private String tagString;
+    private String frequenzString;
+    private int aufwandInt = 1;
+    private String dateString;
+    private String nameString;
 
-    private ArrayList ArrayListUserLastMonthKueche;
-    private ArrayList ArrayListUserLastMonthBad;
-    private ArrayList ArrayListUserThisMonthKueche;
-    private ArrayList ArrayListUserThisMonthBad;
-    private ArrayList ArrayListUserNextMonthKueche;
-    private ArrayList ArrayListUserNextMonthBad;
+    private FrameLayout mainLayout;
 
-    private ArrayList currentArrayListUserKueche;
-    private ArrayList currentArrayListUserBad;
+    private ArrayList ArrayListUser;
 
-    private ArrayAdapter ArrayAdapterListUserLastMonthKueche;
-    private ArrayAdapter ArrayAdapterListUserLastMonthBad;
-    private ArrayAdapter ArrayAdapterListUserThisMonthKueche;
-    private ArrayAdapter ArrayAdapterListUserThisMonthBad;
-    private ArrayAdapter ArrayAdapterListUserNextMonthKueche;
-    private ArrayAdapter ArrayAdapterListUserNextMonthBad;
+    private ArrayAdapter ArrayAdapterListUser;
 
-    private ArrayAdapter currentArrayAdapterListUserKueche;
-    private ArrayAdapter currentArrayAdapterListUserBad;
-
-    private ListView ListUserLastMonthKueche;
-    private ListView ListUserLastMonthBad;
-    private ListView ListUserThisMonthKueche;
-    private ListView ListUserThisMonthBad;
-    private ListView ListUserNextMonthKueche;
-    private ListView ListUserNextMonthBad;
-
-    private MyDatabaseAdapter db_adapter;
-
+    private ListView ListUser;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_putzplan);
+        setContentView(R.layout.activity_putzplan_neu);
         setTitle("#EinerMussesMachen");
 
-        //initTextViews();
+
+        mainLayout = (FrameLayout) findViewById(R.id.activty_putzplan);
         initListViews();
         initButtons();
         initOnClickListener();
         setUpListViews();
-       // initDB();
-
 
     }
 
-    public static String getStringMonth(int month){
-        String[] monthNames = {"Januar", "Februar", "März", "April", "Mai", "Juni", "July", "August", "September", "Oktober", "November", "Dezember"};
-        return monthNames[month];
-    }
-
-   /* private void initTextViews(){
-        if(Integer.valueOf(Build.VERSION.SDK_INT) > 23) {
-            Calendar c = Calendar.getInstance();
-            lastMonth = (TextView) findViewById(R.id.lastMonth);
-            lastMonth.setText(getStringMonth(c.get(Calendar.MONTH)-1));
-            thisMonth = (TextView) findViewById(R.id.thisMonth);
-            thisMonth.setText(getStringMonth(c.get(Calendar.MONTH)));
-            nextMonth = (TextView) findViewById(R.id.thisMonth);
-            nextMonth.setText(getStringMonth(c.get(Calendar.MONTH)+1));
-
-        }
-    } */
-
-    private void initDB(){
-        db_adapter.open();
-        updateList();
-    }
-
-    private void updateList(){
-
-    }
 
     private void setUpListViews(){
-        ArrayListUserLastMonthKueche  = new ArrayList<String>();
-        ArrayAdapterListUserLastMonthKueche = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,ArrayListUserLastMonthKueche);
-        ListUserLastMonthKueche.setAdapter(ArrayAdapterListUserLastMonthKueche);
-
-        ArrayListUserLastMonthBad  = new ArrayList<String>();
-        ArrayAdapterListUserLastMonthBad = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,ArrayListUserLastMonthBad);
-        ListUserLastMonthBad.setAdapter(ArrayAdapterListUserLastMonthBad);
-
-        ArrayListUserThisMonthKueche  = new ArrayList<String>();
-        ArrayAdapterListUserThisMonthKueche = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,ArrayListUserThisMonthKueche);
-        ListUserThisMonthKueche.setAdapter(ArrayAdapterListUserThisMonthKueche);
-
-        ArrayListUserThisMonthBad  = new ArrayList<String>();
-        ArrayAdapterListUserThisMonthBad = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,ArrayListUserThisMonthBad);
-        ListUserThisMonthBad.setAdapter(ArrayAdapterListUserThisMonthBad);
-
-        ArrayListUserNextMonthKueche  = new ArrayList<String>();
-        ArrayAdapterListUserNextMonthKueche = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,ArrayListUserNextMonthKueche);
-        ListUserNextMonthKueche.setAdapter(ArrayAdapterListUserNextMonthKueche);
-
-        ArrayListUserNextMonthBad  = new ArrayList<String>();
-        ArrayAdapterListUserNextMonthBad = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,ArrayListUserNextMonthBad);
-        ListUserNextMonthBad.setAdapter(ArrayAdapterListUserNextMonthBad);
-    }
-
-    private void initOnClickListener() {
-        addUserLastMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentArrayAdapterListUserKueche = ArrayAdapterListUserLastMonthKueche;
-                currentArrayAdapterListUserBad = ArrayAdapterListUserLastMonthBad;
-                currentArrayListUserKueche = ArrayListUserLastMonthKueche;
-                currentArrayListUserBad = ArrayListUserLastMonthBad;
-
-                showPopup(view);
-            }
-        });
-        addUserThisMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentArrayAdapterListUserKueche = ArrayAdapterListUserThisMonthKueche;
-                currentArrayAdapterListUserBad = ArrayAdapterListUserThisMonthBad;
-                currentArrayListUserKueche = ArrayListUserThisMonthKueche;
-                currentArrayListUserBad = ArrayListUserThisMonthBad;
-
-                showPopup(view);
-
-            }
-        });
-        addUserNextMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentArrayAdapterListUserKueche = ArrayAdapterListUserNextMonthKueche;
-                currentArrayAdapterListUserBad = ArrayAdapterListUserNextMonthBad;
-                currentArrayListUserKueche = ArrayListUserNextMonthKueche;
-                currentArrayListUserBad = ArrayListUserNextMonthBad;
-
-                showPopup(view);
-
-            }
-        });
+        ArrayListUser  = new ArrayList<PutzplanItem>();
+        ArrayAdapterListUser = new ArrayAdapter<PutzplanItem>(this, android.R.layout.simple_list_item_1,ArrayListUser);
+        ListUser.setAdapter(ArrayAdapterListUser);
 
     }
 
     private void initButtons() {
-        addUserLastMonth = (Button) findViewById(R.id.button_add_lastMonth);
-        addUserThisMonth = (Button) findViewById(R.id.button_add_thisMonth);
-        addUserNextMonth = (Button) findViewById(R.id.button_add_nextMonth);
-
+        addUser = (ImageButton) findViewById(R.id.button_add_user);
     }
+
+    private void initOnClickListener() {
+        addUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(v);
+            }
+        });
+    }
+
+
 
     private void initListViews(){
-        ListUserLastMonthKueche = (ListView) findViewById(R.id.list_lastMonth_kueche);
-        ListUserLastMonthBad = (ListView) findViewById(R.id.list_lastMonth_bad);
-        ListUserThisMonthKueche = (ListView) findViewById(R.id.list_thistMonth_kueche);
-        ListUserThisMonthBad = (ListView) findViewById(R.id.list_thisMonth_bad);
-        ListUserNextMonthKueche = (ListView) findViewById(R.id.list_nexttMonth_kueche);
-        ListUserNextMonthBad = (ListView) findViewById(R.id.list_nextMonth_bad);
+        ListUser = (ListView) findViewById(R.id.list_putzplan);
+
     }
+
+
+
 
     public void showPopup(View anchorView) {
 
 
-        // Example: If you have a TextView inside `popup_layout.xml`
-
-
-        // get a reference to the already created main layout
-        FrameLayout mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);
-
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.layout_user_popup_einkaufsliste, null);
+        View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
+
+
+
+
 
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -207,44 +118,104 @@ public class Putzplan extends ActionBarActivity {
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
-        final EditText editText1 = (EditText) popupView.findViewById(R.id.edit1);
+        final Spinner spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
+        ArrayAdapter<CharSequence> adapterFrequenz = ArrayAdapter.createFromResource(this,
+                R.array.frequenz, android.R.layout.simple_spinner_item);
+        adapterFrequenz.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFrequenz.setAdapter(adapterFrequenz);
 
-        final EditText editText2 = (EditText) popupView.findViewById(R.id.edit2);
 
-        final Button button = (Button) popupView.findViewById(R.id.ok_button);
+        final Spinner spinnerTag = (Spinner) popupView.findViewById(R.id.spinner_tag);
+        ArrayAdapter<CharSequence> adapterTag = ArrayAdapter.createFromResource(this,
+                R.array.tag, android.R.layout.simple_spinner_item);
+        adapterTag.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTag.setAdapter(adapterTag);
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        final Spinner spinnerAufwand = (Spinner) popupView.findViewById(R.id.spinner_aufwand);
+        ArrayAdapter<CharSequence> adapterAufwand = ArrayAdapter.createFromResource(this,
+                R.array.aufwand, android.R.layout.simple_spinner_item);
+        adapterAufwand.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAufwand.setAdapter(adapterAufwand);
+
+
+        final EditText titel = (EditText) popupView.findViewById(R.id.edit_titel);
+
+        final TextView datePutzplan = (TextView) popupView.findViewById(R.id.date_putzplan);
+
+        final Button buttonFertig = (Button) popupView.findViewById(R.id.buttom_fertig);
+
+
+
+        buttonFertig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editText1.getText().toString().length() == 0 && editText2.getText().toString().length() == 0){
-                    Toast.makeText(getApplicationContext(),"Musst scho an Text eingeben",Toast.LENGTH_LONG).show();
-
+                if(titel.getText().toString().length() == 0){
+                    Toast.makeText(getApplicationContext(),"Musst scho an titel eingeben",Toast.LENGTH_LONG).show();
                 }
-                if (editText1.getText().toString().length() != 0) {
-                    currentArrayListUserKueche.add(editText1.getText().toString());
-                    currentArrayAdapterListUserKueche.notifyDataSetChanged();
+                if(datePutzplan.getText().toString().length() == 0) {
+                    Toast.makeText(getApplicationContext(), "Musst scho a Datum eingeben", Toast.LENGTH_LONG).show();
                 }
-                if (editText2.getText().toString().length() != 0) {
-                    currentArrayListUserBad.add(editText2.getText().toString());
-                    currentArrayAdapterListUserBad.notifyDataSetChanged();
+                 if((titel.getText().toString().length() != 0)&& datePutzplan.getText().toString().length() != 0) {
+                    PutzplanItem putzkraft = new PutzplanItem(titel.getText().toString(), spinnerFrequenz.getSelectedItem().toString(),
+                            datePutzplan.getText().toString(), spinnerTag.getSelectedItem().toString(), nameString, Integer.getInteger(spinnerAufwand.getSelectedItem().toString()));
+                    popupWindow.dismiss();
                 }
-                popupWindow.dismiss();
             }
         });
 
     }
 
+
+
     private void removeTaskAtPositionKueche(int position) {
-        if (currentArrayListUserKueche.get(position) != null) {
-            currentArrayListUserKueche.remove(position);
-            currentArrayAdapterListUserKueche.notifyDataSetChanged();
+        if (ArrayListUser.get(position) != null) {
+            ArrayListUser.remove(position);
+            ArrayAdapterListUser.notifyDataSetChanged();
         }
     }
 
-    private void removeTaskAtPositionBad(int position) {
-        if (currentArrayListUserBad.get(position) != null) {
-            currentArrayListUserBad.remove(position);
-            currentArrayAdapterListUserBad.notifyDataSetChanged();
+
+    public void showDatePickerDialog() {
+        DialogFragment dateFragment = new DatePickerFragment();
+        dateFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    private Date getDateFromString(String dateString) {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
+                Locale.GERMANY);
+        try {
+            return df.parse(dateString);
+        } catch (ParseException e) {
+            // return current date as fallback
+            return new Date();
+        }
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements
+            DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            TextView textView = (TextView) getActivity().findViewById(R.id.date_putzplan);
+
+            GregorianCalendar date = new GregorianCalendar(year, month, day);
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
+                    Locale.GERMANY);
+            String dateString = df.format(date.getTime());
+
+            textView.setText(dateString);
         }
     }
 

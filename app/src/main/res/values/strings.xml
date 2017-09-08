@@ -3,4 +3,29 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="frequenz">
+        <item>Jeden Tag</item>
+        <item>Jede Woche</item>
+        <item>Jede zweite Woche</item>
+        <item>Jeden Monat</item>
+        <item>Jeden zweiten Monat</item>
+        <item>Wenn du erwachsen bist</item>
+    </string-array>
+
+    <string-array name="tag">
+        <item>Montag</item>
+        <item>Dienstag</item>
+        <item>Mittwoch</item>
+        <item>Donnerstag</item>
+        <item>Freitag</item>
+        <item>Samstag</item>
+        <item>Sonntag</item>
+    </string-array>
+
+    <array name="aufwand">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>-array>
 </resources>
