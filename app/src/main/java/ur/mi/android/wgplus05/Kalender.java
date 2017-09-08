@@ -40,7 +40,7 @@ public class Kalender extends AppCompatActivity {
         setContentView(R.layout.activity_kalender);
         initTaskList();
         initDatabase();
-        initUI();
+        initListView();
         refreshArrayList();
         mainLayout = (LinearLayout) findViewById(R.id.activity_kalender_id);
 
@@ -112,9 +112,7 @@ public class Kalender extends AppCompatActivity {
         });
 
     }
-    private void initUI() {
-        initListView();
-    }
+
 
     private void initListView() {
         ListView list = (ListView) findViewById(R.id.todo_list);
