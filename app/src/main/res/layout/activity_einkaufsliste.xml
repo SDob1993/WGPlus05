@@ -29,9 +29,11 @@
             android:layout_height="wrap_content"
             android:text="Was brauchen wir noch?"
             android:textColor="@color/Black"
-            android:textSize="30dp"
+            android:textSize="34dp"
             android:layout_gravity="top|center_horizontal"
             android:textStyle="bold"
+            android:id="@+id/wasbrauchenwirnoch"
+            android:layout_marginTop="15dp"
             />
 
         <ListView

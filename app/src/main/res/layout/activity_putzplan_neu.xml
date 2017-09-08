@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:scaleType = "centerCrop"
+        android:src="@drawable/wgplus_background_blur"
+        android:foregroundTint="@color/Black"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/layout_round_corners_dark"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wer ist heute dran?"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/Black"
+        android:layout_margin="15dp"
+        android:textSize="39dp"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/einkaufsliste_plus"
+        android:background="?android:selectableItemBackground"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/Black"
+        android:elevation="10dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        />
+
+
+
+
+</FrameLayout>

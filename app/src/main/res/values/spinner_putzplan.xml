@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="frequenz_array">
+        <item>Täglich</item>
+        <item>Wöchentlich</item>
+        <item>alle zwei Wochen</item>
+        <item>Monatlich</item>
+    </string-array>
+</resources>
