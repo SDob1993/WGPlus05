@@ -127,7 +127,6 @@ public class Einkaufsliste extends AppCompatActivity {
         final Spinner spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
         ArrayAdapter<CharSequence> adapterFrequenz = ArrayAdapter.createFromResource(this,
                 R.array.frequenz, android.R.layout.simple_spinner_item);
-        adapterFrequenz.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFrequenz.setAdapter(adapterFrequenz);
 
         final EditText editText1 = (EditText) popupView.findViewById(R.id.edit_einkaufsliste);

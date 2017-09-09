@@ -3,6 +3,7 @@ package ur.mi.android.wgplus05;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -37,6 +38,11 @@ public class Putzplan extends ActionBarActivity {
     private ImageButton addUser;
 
     private ArrayList ArrayListUser;
+
+    private Spinner spinnerFrequenz;
+    private Spinner spinnerTag;
+    private Spinner spinnerAufwand;
+    private TextView datePutzplan;
 
     private ArrayAdapter ArrayAdapterListUser;
 
@@ -80,62 +86,11 @@ public class Putzplan extends ActionBarActivity {
     }
 
 
-
     private void initListViews(){
         ListUser = (ListView) findViewById(R.id.list_putzplan);
 
     }
 
-
-
-
-    /* public void showPopup(View anchorView) {
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
-
-        // create the popup window
-        int width = LinearLayout.LayoutParams.MATCH_PARENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-
-        // show the popup window
-        popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-
-
-
-        final Spinner spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
-        ArrayAdapter<CharSequence> adapterFrequenz = ArrayAdapter.createFromResource(this,
-                R.array.frequenz, android.R.layout.simple_spinner_item);
-        adapterFrequenz.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFrequenz.setAdapter(adapterFrequenz);
-
-
-        final Spinner spinnerTag = (Spinner) popupView.findViewById(R.id.spinner_tag);
-        ArrayAdapter<CharSequence> adapterTag = ArrayAdapter.createFromResource(this,
-                R.array.tag, android.R.layout.simple_spinner_item);
-        adapterTag.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTag.setAdapter(adapterTag);
-
-
-        final Spinner spinnerAufwand = (Spinner) popupView.findViewById(R.id.spinner_aufwand);
-        ArrayAdapter<CharSequence> adapterAufwand = ArrayAdapter.createFromResource(this,
-                R.array.aufwand, android.R.layout.simple_spinner_item);
-        adapterAufwand.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAufwand.setAdapter(adapterAufwand);
-
-
-        final EditText titel = (EditText) popupView.findViewById(R.id.edit_titel);
-
-        final TextView datePutzplan = (TextView) popupView.findViewById(R.id.date_putzplan);
-
-        final Button buttonFertig = (Button) popupView.findViewById(R.id.buttom_fertig);
-
-
-
-    } */
 
     public void showPopupAdd(View anchorView) {
 
@@ -144,7 +99,7 @@ public class Putzplan extends ActionBarActivity {
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
+        final View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -156,35 +111,50 @@ public class Putzplan extends ActionBarActivity {
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
-      /*  final Spinner spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
-        ArrayAdapter<CharSequence> adapterFrequenz = ArrayAdapter.createFromResource(this,
-                R.array.frequenz, android.R.layout.simple_spinner_item);
-        adapterFrequenz.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
+        ArrayAdapter<String> adapterFrequenz = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.frequenz));
         spinnerFrequenz.setAdapter(adapterFrequenz);
 
-        final Spinner spinnerTag = (Spinner) popupView.findViewById(R.id.spinner_tag);
-        ArrayAdapter<CharSequence> adapterTag = ArrayAdapter.createFromResource(this,
-                R.array.tag, android.R.layout.simple_spinner_item);
-        adapterTag.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       /* spinnerTag = (Spinner) popupView.findViewById(R.id.spinner_tag);
+        ArrayAdapter<String> adapterTag = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.tag));
         spinnerTag.setAdapter(adapterTag);
 
 
-        final Spinner spinnerAufwand = (Spinner) popupView.findViewById(R.id.spinner_aufwand);
-        ArrayAdapter<CharSequence> adapterAufwand = ArrayAdapter.createFromResource(this,
-                R.array.aufwand, android.R.layout.simple_spinner_item);
-        adapterAufwand.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAufwand.setAdapter(adapterAufwand);
+        spinnerAufwand = (Spinner) popupView.findViewById(R.id.spinner_aufwand);
+        ArrayAdapter<String> adapterAufwand = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.aufwand));
+        spinnerAufwand.setAdapter(adapterAufwand); */
 
         final EditText titel = (EditText) popupView.findViewById(R.id.edit_titel);
 
-        final TextView datePutzplan = (TextView) popupView.findViewById(R.id.date_putzplan);
+        datePutzplan = (TextView) popupView.findViewById(R.id.date_putzplan);
+        datePutzplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+
+            }
+        });
+
 
         final Button buttonFertig = (Button) popupView.findViewById(R.id.buttom_fertig);
 
-        buttonFertig.setOnClickListener(new View.OnClickListener() {
+        /*buttonFertig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (titel.toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Musst scho an Titel angeben",Toast.LENGTH_LONG).show();
+                }
+                if (datePutzplan.toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Musst scho a Datum angeben",Toast.LENGTH_LONG).show();
+                }
+                if (!(titel.toString().equals("") && datePutzplan.toString().equals(""))){
+                    PutzplanItem putzplanItem = new PutzplanItem(titel.getText().toString(),spinnerFrequenz.getSelectedItem().toString(),
+                            datePutzplan.getText().toString(),spinnerTag.getSelectedItem().toString(),"Lukas",Integer.getInteger(spinnerAufwand.getSelectedItem().toString()));
+                    ArrayListUser.add(putzplanItem);
+                    ArrayAdapterListUser.notifyDataSetChanged();
+                    popupWindow.dismiss();
+                }
             }
         }); */
     }
@@ -197,10 +167,15 @@ public class Putzplan extends ActionBarActivity {
         }
     }
 
+    public void changeDatePutzplanText(String dateString){
+        datePutzplan.setText(dateString);
+    }
+
 
     public void showDatePickerDialog() {
         DialogFragment dateFragment = new DatePickerFragment();
         dateFragment.show(getFragmentManager(), "datePicker");
+
     }
 
     private Date getDateFromString(String dateString) {
@@ -217,6 +192,8 @@ public class Putzplan extends ActionBarActivity {
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
+        private static String dateString;
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -226,18 +203,27 @@ public class Putzplan extends ActionBarActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OKasdas", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //
+                }
+            });
+            return dialog;
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            TextView textView = (TextView) getActivity().findViewById(R.id.date_putzplan);
 
             GregorianCalendar date = new GregorianCalendar(year, month, day);
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
                     Locale.GERMANY);
-            String dateString = df.format(date.getTime());
+            dateString = df.format(date.getTime());
 
-            textView.setText(dateString);
+        }
+
+        public static String getDateString(){
+            return dateString;
         }
     }
 
