@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ur.mi.android.wgplus05.Settings">
+    android:id="@+id/activity_settings"
+    >
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:scaleType = "centerCrop"
+        android:src="@drawable/wgplus_background_blur"
+        android:foregroundTint="@color/Black"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/layout_round_corners_dark"
+        />
+
+    <TextView
+        android:id="@+id/TextViewWGName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name der WG?"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/Black"
+        android:layout_margin="15dp"
+        android:textSize="39dp"
+        />
+
+    <ListView
+        android:id="@+id/list_putzplan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:layout_marginTop="150dp"></ListView>
+
+    <ImageButton
+        android:id="@+id/buttonaddusers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="?android:selectableItemBackground"
+        android:backgroundTint="@color/Black"
+        android:elevation="10dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/einkaufsliste_plus" />
+
+
+</FrameLayout>

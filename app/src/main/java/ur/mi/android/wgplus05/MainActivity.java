@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         einkaufslisteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Einkaufsliste.class);
+                Intent intent = new Intent(MainActivity.this,Einkaufsliste2.class);
                 startActivity(intent);
             }
         });

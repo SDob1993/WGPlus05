@@ -126,7 +126,8 @@ public class Einkaufsliste2 extends AppCompatActivity {
             public void onClick(View v) {
                 final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue();
                 if(!preis.equals("0.0")) {
-                    Finanzen finanzen = new Finanzen();
+                    FinanzenEntry finanzen = new FinanzenEntry(Double.parseDouble(preis));
+                    EKDB.insertFinanzenGes(finanzen);
                     finanzen.addGuthabenDouble(Double.parseDouble(preis));
                     popupWindow.dismiss();
                 }
@@ -155,7 +156,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                //removeTaskAtPosition(position);
+                removeTaskAtPosition(position);
                 showPopupRemove();
                 return true;
             }

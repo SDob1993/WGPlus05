@@ -25,7 +25,9 @@ public class CalendarDB {
     //DB_Table für Calendar
     private static final String DATABASE_TABLE = "todolistitems";
     //DB_Table für Einkäufe
-    private static final String DATABASE_TABLE1 = "einkauefelistitems";
+    private static final String DATABASE_TABLE1 = "ekitems";
+    //DB_Table für FInanzen
+    private static final String DATABASE_TABLE2 = "finanzen";
     //Keys für Calendar
     public static final String KEY_ID = "_id";
     public static final String KEY_TASK = "task";
@@ -33,10 +35,16 @@ public class CalendarDB {
     //Keys für EInkaufsitem
     public static final String KEY_IDEK = "_id1";
     public static final String KEY_NAME = "name";
+    //Keys für Finanzen
+    public static final String KEY_IDNAME = "_id";
+    public static final String KEY_GUTHABEN = "guthaben";
+    public static final String KEY_GESAMT = "gesamt";
 
     public static final int COLUMN_TASK_INDEX = 1;
     public static final int COLUMN_DATE_INDEX = 2;
     public static final int COLUMN_NAME_INDEX = 1;
+    public static final int COLUMN_GUTHABEN_INDEX = 1;
+    public static final int COLUMN_GESAMT_INDEX = 2;
 
     private ToDoDBOpenHelper dbHelper;
 
@@ -70,6 +78,18 @@ public class CalendarDB {
         ContentValues itemValues = new ContentValues();
         itemValues.put(KEY_NAME, item.getName());
         return db.insert(DATABASE_TABLE1, null, itemValues);
+    }
+    //Insert-Methdoe für Finanzen
+    public long insertFinanzenGes(FinanzenEntry item) {
+        ContentValues itemValues = new ContentValues();
+        itemValues.put(KEY_GESAMT, item.getGuthabenDouble());
+        return db.insert(DATABASE_TABLE2, null, itemValues);
+
+    }
+    public void insertFinanzenSpez(FinanzenEntry item,String User) {
+        double value = item.getGuthabenDouble();
+        db.execSQL("INSERT INTO"+DATABASE_TABLE2+"("+KEY_GUTHABEN+") VALUES("+ value + ") WHERE"+KEY_IDNAME+"=="+User);
+
     }
     //Remove-Methode für Calendar
     public void removeToDoItem(CalendarItem item) {
@@ -118,16 +138,15 @@ public class CalendarDB {
     //get All EinkaufItems
     public ArrayList<EinkaufsItem> getAllEinkaufItems() {
         ArrayList<EinkaufsItem> items = new ArrayList<EinkaufsItem>();
-       /* Cursor cursor = db.query(DATABASE_TABLE1, new String[] {KEY_ID,
-                KEY_TASK}, null, null, null, null, null);
+        Cursor cursor = db.query(DATABASE_TABLE1, new String[] {KEY_IDEK,
+                KEY_NAME}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(COLUMN_NAME_INDEX);
                 items.add(new EinkaufsItem(name));
 
             } while (cursor.moveToNext());
-        }*/
-        //items.add(new EinkaufsItem("Hallo"));
+        }
         return items;
     }
 
@@ -135,13 +154,18 @@ public class CalendarDB {
         private static final String DATABASE_CREATE = "create table "
                 + DATABASE_TABLE + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_TASK
-                + " text not null, " + KEY_DATE + " text," + KEY_NAME + "text);";
+                + " text not null, " + KEY_DATE + " text);";
 
 
-         private static final String DATABASE_CREATE1 = "create table "
+        private static final String DATABASE_CREATE1 = "create table "
                 + DATABASE_TABLE1 + " (" + KEY_IDEK
                 + " integer primary key autoincrement, " + KEY_NAME
                 + " text not null);";
+
+        private static final String DATABASE_CREATE2 = "create table "
+                + DATABASE_TABLE2 + " (" + KEY_IDNAME
+                + " text primary key , " + KEY_GESAMT
+                + " text not null, " + KEY_GUTHABEN + " text);";
 
         public ToDoDBOpenHelper(Context c, String dbname,
                                 SQLiteDatabase.CursorFactory factory, int version) {
@@ -152,6 +176,7 @@ public class CalendarDB {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
             db.execSQL(DATABASE_CREATE1);
+            db.execSQL(DATABASE_CREATE2);
         }
 
         @Override

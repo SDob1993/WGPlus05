@@ -24,6 +24,9 @@ public class Finanzen extends AppCompatActivity {
         guthabenAnzeige.setTypeface(myTypeface);
     }
 
+
+
+
     public double getGuthabenDouble(){
         return guthabenDouble;
     }
