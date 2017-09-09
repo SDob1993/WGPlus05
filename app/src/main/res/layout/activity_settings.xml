@@ -20,6 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/layout_round_corners_dark"
+        android:layout_gravity="bottom"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/layout_round_corners_dark"
+        android:layout_gravity="top"
         />
 
     <TextView
@@ -33,19 +41,33 @@
         android:textSize="39dp"
         />
 
+    <TextView
+        android:id="@+id/TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="keine ahnung was"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textColor="@color/Black"
+        android:layout_margin="15dp"
+        android:textSize="39dp"
+
+        />
+
     <ListView
         android:id="@+id/list_putzplan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_marginTop="150dp"></ListView>
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp">
+    </ListView>
 
     <ImageButton
         android:id="@+id/buttonaddusers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="50dp"
         android:background="?android:selectableItemBackground"
         android:backgroundTint="@color/Black"
         android:elevation="10dp"

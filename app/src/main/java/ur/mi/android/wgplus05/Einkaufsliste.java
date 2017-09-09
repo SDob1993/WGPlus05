@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -122,6 +123,12 @@ public class Einkaufsliste extends AppCompatActivity {
 
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
+        final Spinner spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
+        ArrayAdapter<CharSequence> adapterFrequenz = ArrayAdapter.createFromResource(this,
+                R.array.frequenz, android.R.layout.simple_spinner_item);
+        adapterFrequenz.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFrequenz.setAdapter(adapterFrequenz);
 
         final EditText editText1 = (EditText) popupView.findViewById(R.id.edit_einkaufsliste);
 

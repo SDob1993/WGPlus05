@@ -36,19 +36,12 @@ public class Putzplan extends ActionBarActivity {
 
     private ImageButton addUser;
 
-    private String tagString;
-    private String frequenzString;
-    private int aufwandInt = 1;
-    private String dateString;
-    private String nameString;
-
-    private FrameLayout mainLayout;
-
     private ArrayList ArrayListUser;
 
     private ArrayAdapter ArrayAdapterListUser;
 
     private ListView ListUser;
+    FrameLayout mainLayout;
 
 
     @Override
@@ -56,9 +49,8 @@ public class Putzplan extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_putzplan_neu);
         setTitle("#EinerMussesMachen");
-
-
         mainLayout = (FrameLayout) findViewById(R.id.activty_putzplan);
+
         initListViews();
         initButtons();
         initOnClickListener();
@@ -82,7 +74,7 @@ public class Putzplan extends ActionBarActivity {
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(v);
+                showPopupAdd(v);
             }
         });
     }
@@ -97,16 +89,10 @@ public class Putzplan extends ActionBarActivity {
 
 
 
-    public void showPopup(View anchorView) {
+    /* public void showPopup(View anchorView) {
 
-
-        // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
-
-
-
-
 
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -117,6 +103,8 @@ public class Putzplan extends ActionBarActivity {
 
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
+
 
         final Spinner spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
         ArrayAdapter<CharSequence> adapterFrequenz = ArrayAdapter.createFromResource(this,
@@ -147,25 +135,59 @@ public class Putzplan extends ActionBarActivity {
 
 
 
+    } */
+
+    public void showPopupAdd(View anchorView) {
+
+        // get a reference to the already created main layout
+
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+
+        // show the popup window
+        popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
+      /*  final Spinner spinnerFrequenz = (Spinner) popupView.findViewById(R.id.spinner_frequenz);
+        ArrayAdapter<CharSequence> adapterFrequenz = ArrayAdapter.createFromResource(this,
+                R.array.frequenz, android.R.layout.simple_spinner_item);
+        adapterFrequenz.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFrequenz.setAdapter(adapterFrequenz);
+
+        final Spinner spinnerTag = (Spinner) popupView.findViewById(R.id.spinner_tag);
+        ArrayAdapter<CharSequence> adapterTag = ArrayAdapter.createFromResource(this,
+                R.array.tag, android.R.layout.simple_spinner_item);
+        adapterTag.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTag.setAdapter(adapterTag);
+
+
+        final Spinner spinnerAufwand = (Spinner) popupView.findViewById(R.id.spinner_aufwand);
+        ArrayAdapter<CharSequence> adapterAufwand = ArrayAdapter.createFromResource(this,
+                R.array.aufwand, android.R.layout.simple_spinner_item);
+        adapterAufwand.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAufwand.setAdapter(adapterAufwand);
+
+        final EditText titel = (EditText) popupView.findViewById(R.id.edit_titel);
+
+        final TextView datePutzplan = (TextView) popupView.findViewById(R.id.date_putzplan);
+
+        final Button buttonFertig = (Button) popupView.findViewById(R.id.buttom_fertig);
+
         buttonFertig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(titel.getText().toString().length() == 0){
-                    Toast.makeText(getApplicationContext(),"Musst scho an titel eingeben",Toast.LENGTH_LONG).show();
-                }
-                if(datePutzplan.getText().toString().length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Musst scho a Datum eingeben", Toast.LENGTH_LONG).show();
-                }
-                 if((titel.getText().toString().length() != 0)&& datePutzplan.getText().toString().length() != 0) {
-                    PutzplanItem putzkraft = new PutzplanItem(titel.getText().toString(), spinnerFrequenz.getSelectedItem().toString(),
-                            datePutzplan.getText().toString(), spinnerTag.getSelectedItem().toString(), nameString, Integer.getInteger(spinnerAufwand.getSelectedItem().toString()));
-                    popupWindow.dismiss();
-                }
+
             }
-        });
-
+        }); */
     }
-
 
 
     private void removeTaskAtPositionKueche(int position) {

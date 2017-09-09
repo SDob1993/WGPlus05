@@ -94,6 +94,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
 
     }
 
+
     public void showPopupRemove() {
 
         // get a reference to the already created main layout

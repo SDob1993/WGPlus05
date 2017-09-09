@@ -18,6 +18,15 @@
         android:inputType="text"
         />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_frequenz"
+        android:entries="@array/frequenz"
+        android:layout_gravity="end"
+        android:spinnerMode="dialog"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
