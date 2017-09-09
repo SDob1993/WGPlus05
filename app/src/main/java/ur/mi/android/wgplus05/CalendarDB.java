@@ -28,6 +28,8 @@ public class CalendarDB {
     private static final String DATABASE_TABLE1 = "ekitems";
     //DB_Table für FInanzen
     private static final String DATABASE_TABLE2 = "finanzen";
+    //DB_Table für WGName
+    private static final String DATABASE_TABLE3 = "wgname";
     //Keys für Calendar
     public static final String KEY_ID = "_id";
     public static final String KEY_TASK = "task";
@@ -39,6 +41,10 @@ public class CalendarDB {
     public static final String KEY_IDNAME = "_id";
     public static final String KEY_GUTHABEN = "guthaben";
     public static final String KEY_GESAMT = "gesamt";
+    //Keys für DBName
+    public static final String KEY_IDEWG = "_id";
+    public static final String KEY_NAMEWG = "name";
+
 
     public static final int COLUMN_TASK_INDEX = 1;
     public static final int COLUMN_DATE_INDEX = 2;
@@ -91,6 +97,14 @@ public class CalendarDB {
         db.execSQL("INSERT INTO"+DATABASE_TABLE2+"("+KEY_GUTHABEN+") VALUES("+ value + ") WHERE"+KEY_IDNAME+"=="+User);
 
     }
+
+    //Insert-Methode Name der Wg
+    public long insertWgName (String name){
+        ContentValues nameValues = new ContentValues();
+        nameValues.put(KEY_NAMEWG,name);
+        return db.insert(DATABASE_TABLE3,null,nameValues);
+    }
+
     //Remove-Methode für Calendar
     public void removeToDoItem(CalendarItem item) {
 
@@ -149,6 +163,19 @@ public class CalendarDB {
         }
         return items;
     }
+    //get WGName
+    public String getWGName() {
+        String name ="";
+        Cursor cursor = db.query(DATABASE_TABLE3, new String[] {KEY_IDNAME,
+                KEY_NAMEWG}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                name = cursor.getString(1);
+
+            } while (cursor.moveToNext());
+        }
+        return name;
+    }
 
     private class ToDoDBOpenHelper extends SQLiteOpenHelper {
         private static final String DATABASE_CREATE = "create table "
@@ -171,12 +198,18 @@ public class CalendarDB {
                                 SQLiteDatabase.CursorFactory factory, int version) {
             super(c, dbname, factory, version);
         }
+        private static final String DATABASE_CREATE3 = "create table "
+                + DATABASE_TABLE3 + " (" + KEY_IDNAME
+                + " integer primary key autoincrement, " + KEY_NAMEWG
+                + " text not null);";
 
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
             db.execSQL(DATABASE_CREATE1);
             db.execSQL(DATABASE_CREATE2);
+            db.execSQL(DATABASE_CREATE3);
+            db.execSQL("INSERT INTO"+DATABASE_TABLE3+"("+KEY_NAMEWG+") VALUES ('Name der WG')");
         }
 
         @Override

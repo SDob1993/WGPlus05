@@ -17,9 +17,12 @@ import android.widget.Toast;
 public class Settings extends AppCompatActivity {
 
     private FrameLayout mainLayout;
-    private View textView;
+    private TextView textView;
     private ListView listView;
     private View addButton;
+    private boolean nameSetted = false;
+    private CalendarDB SEDB;
+    private String Name;
 
 
     public Settings() {
@@ -31,17 +34,24 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         setTitle("#Crew");
 
+        initDatabase();
+
         mainLayout = (FrameLayout) findViewById(R.id.activity_settings);
 
         initListeners();
     }
 
     private void initListeners() {
-        textView = findViewById(R.id.TextViewWGName);
+        textView = (TextView) findViewById(R.id.TextViewWGName);
         addButton = findViewById(R.id.buttonaddusers);
+        textView.setText(SEDB.getWGName());
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {showPopupAdd(v);}
+            public void onClick(View v) {
+                if(!nameSetted)
+                showPopupAdd(v);
+                nameSetted=true;
+            }
 
     });}
 
@@ -73,14 +83,21 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 if(editText1.getText().toString().length() != 0) {
 
-                    //EKDB.insertEinkaufItem(item);
-                    //item_adapter.notifyDataSetChanged();
+                    SEDB.insertWgName(editText1.getText().toString());
+                    System.out.println(SEDB.getWGName());
+                    Name = SEDB.getWGName();
+                    textView.setText(Name);
                     popupWindow.dismiss();
                 }
                 else Toast.makeText(getApplicationContext(),"Bitte gültigen Wert eingeben",Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    private void initDatabase() {
+        SEDB = new CalendarDB(this);
+        SEDB.open();
     }
 
 
