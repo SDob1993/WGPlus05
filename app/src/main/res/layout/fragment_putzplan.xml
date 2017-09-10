@@ -8,7 +8,7 @@
     >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="vertical">
@@ -17,41 +17,96 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_margin="15dp"
-                android:text="Titel"
-                android:textColor="@color/Black"
-                android:textSize="20dp" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/edit_titel"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Titel"
+                    android:textColor="@color/Black"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/edit_titel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_margin="15dp"
-                android:text="Frequenz"
-                android:textColor="@color/Black"
-                android:textSize="20dp" />
+                android:layout_height="wrap_content">
 
-            <Spinner
-                android:id="@+id/spinner_frequenz"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Frequenz"
+                    android:textColor="@color/Black"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dialog" />
+                android:layout_height="match_parent">
 
+                <Spinner
+                    android:id="@+id/spinner_frequenz"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="15dp"
+                    android:text="Start"
+                    android:textColor="@color/Black"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/button_set_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="15dp"
+                    android:text="set" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -61,43 +116,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_margin="15dp"
-                android:text="Start"
-                android:textColor="@color/Black"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/date_putzplan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:hint="ab wann?"
-                android:textColor="@color/Black"
-                android:textSize="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:layout_margin="15dp"
                 android:text="Welcher Tag?"
                 android:textColor="@color/Black"
                 android:textSize="20dp" />
 
-            <Spinner
-                android:id="@+id/spinner_tag"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dialog"
-
+                android:layout_height="match_parent"
+                android:hint="Montag?"
+                android:id="@+id/edit_day"
                 />
+
 
         </LinearLayout>
 
@@ -108,21 +138,31 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="center_vertical"
                 android:layout_margin="15dp"
                 android:text="Aufwand"
                 android:textColor="@color/Black"
                 android:textSize="20dp" />
 
-            <Spinner
-                android:id="@+id/spinner_aufwand"
+            <Space
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dialog"
+                android:layout_height="wrap_content">
+
+                <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:id="@+id/number_picker_aufwand"
+                    >
 
 
-                />
+                </NumberPicker>
 
+            </LinearLayout>
         </LinearLayout>
 
         <ListView
