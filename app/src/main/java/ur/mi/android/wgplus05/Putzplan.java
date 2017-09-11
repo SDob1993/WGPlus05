@@ -106,6 +106,14 @@ public class Putzplan extends ActionBarActivity {
 
     private void initListViews() {
         listView = (ListView) findViewById(R.id.list_putzplan);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                removeTaskAtPosition(position);
+                return true;
+            }
+        });
 
     }
 
@@ -180,10 +188,10 @@ public class Putzplan extends ActionBarActivity {
     }
 
 
-    private void removeTaskAtPositionKueche(int position) {
+    private void removeTaskAtPosition(int position) {
         if (ArrayListUser.get(position) != null) {
-            ArrayListUser.remove(position);
-            customAdapter.notifyDataSetChanged();
+            PDB.removePutzplanItem(ArrayListUser.get(position));
+            refreshArrayList();
         }
     }
 
