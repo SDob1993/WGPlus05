@@ -34,7 +34,6 @@
         android:id="@+id/TextViewWGName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name der WG?"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/Black"
         android:layout_margin="15dp"
@@ -42,10 +41,9 @@
         />
 
     <TextView
-        android:id="@+id/TextView"
+        android:id="@+id/TextViewSettings2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="keine ahnung was"
         android:layout_gravity="center_horizontal|bottom"
         android:textColor="@color/Black"
         android:layout_margin="15dp"
