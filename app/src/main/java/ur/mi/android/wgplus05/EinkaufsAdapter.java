@@ -5,6 +5,7 @@ package ur.mi.android.wgplus05;
  */
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import java.util.ArrayList;
 public class EinkaufsAdapter extends ArrayAdapter<EinkaufsItem> {
     private ArrayList<EinkaufsItem> einkaufList;
     private Context context;
+    private Typeface myTypeFace;
 
     public EinkaufsAdapter(Context context, ArrayList<EinkaufsItem> einkaufsItems) {
         super(context, R.layout.ekitem_layout, einkaufsItems);
         this.context = context;
         this.einkaufList = einkaufsItems;
+        myTypeFace = Typeface.createFromAsset(context.getAssets(), "IndieFlower.ttf");
     }
 
     @Override
@@ -41,6 +44,8 @@ public class EinkaufsAdapter extends ArrayAdapter<EinkaufsItem> {
 
         if (item != null) {
             TextView itemName = (TextView) v.findViewById(R.id.item_name);
+            itemName.setTypeface(myTypeFace);
+
 
 
             itemName.setText(item.getName());

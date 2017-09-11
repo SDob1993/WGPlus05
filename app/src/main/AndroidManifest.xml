@@ -24,8 +24,8 @@
         <activity android:name=".FotoWand" />
         <activity
             android:name=".Putzplan"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".Kalender"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Kalender" />
     </application>
 
 </manifest>

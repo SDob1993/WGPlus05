@@ -37,7 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_marginTop="150dp"></ListView>
+        android:layout_marginTop="150dp"
+        android:animateLayoutChanges="true"
+
+        >
+    </ListView>
 
     <ImageButton
         android:id="@+id/button_add_user"

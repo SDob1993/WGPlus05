@@ -41,15 +41,15 @@ public class Putzplan extends ActionBarActivity {
 
     private ImageButton addUser;
 
-    private ArrayList ArrayListUser;
+    private ArrayList<PutzplanItem> ArrayListUser;
 
     private Spinner spinnerFrequenz;
 
     private String dateString;
 
-    private CustomListViewAdaper customAdapter;
+    private PutzplanItemAdapter customAdapter;
 
-    private ListView ListUser;
+    private ListView listView;
     FrameLayout mainLayout;
 
 
@@ -69,9 +69,11 @@ public class Putzplan extends ActionBarActivity {
 
 
     private void setUpListViews() {
-        ArrayListUser = new ArrayList<PutzplanItem>();
-        customAdapter = new CustomListViewAdaper(this, R.layout.list_view_layout, ArrayListUser);
-        ListUser.setAdapter(customAdapter);
+        ArrayListUser = new ArrayList<>();
+        customAdapter = new PutzplanItemAdapter(this, ArrayListUser);
+        listView.setAdapter(customAdapter);
+        ArrayListUser.add(new PutzplanItem("titel","frequenz","date","tag","name",1));
+        customAdapter.notifyDataSetChanged();
 
     }
 
@@ -90,7 +92,7 @@ public class Putzplan extends ActionBarActivity {
 
 
     private void initListViews() {
-        ListUser = (ListView) findViewById(R.id.list_putzplan);
+        listView = (ListView) findViewById(R.id.list_putzplan);
 
     }
 
@@ -145,18 +147,19 @@ public class Putzplan extends ActionBarActivity {
         buttonFertig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (titel.toString().equals("")) {
+                if (titel.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Musst scho an Titel angeben", Toast.LENGTH_LONG).show();
                 }
                 if (dateString.equals("")) {
                     Toast.makeText(getApplicationContext(), "Musst scho a Datum angeben", Toast.LENGTH_LONG).show();
                 }
-                if (!(titel.toString().equals("") && dateString.equals(""))) {
+                if (!(titel.getText() == null || editDay.getText() == null)) {
                     PutzplanItem putzplanItem = new PutzplanItem(titel.getText().toString(), spinnerFrequenz.getSelectedItem().toString(),
                             dateString, editDay.getText().toString(), "Lukas", numberPicker.getValue());
                     ArrayListUser.add(putzplanItem);
                     customAdapter.notifyDataSetChanged();
                     popupWindow.dismiss();
+                    Log.d("values",putzplanItem.toText() );
                 }
             }
         });

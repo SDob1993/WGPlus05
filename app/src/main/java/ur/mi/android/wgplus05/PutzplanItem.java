@@ -45,4 +45,8 @@ public class PutzplanItem {
     public String getTitel() {
         return titel;
     }
+
+    public String toText(){
+        return ""+titel+date+aufwand+name+tag+frequenz;
+    }
 }

@@ -38,33 +38,31 @@ public class CustomListViewAdaper extends ArrayAdapter<PutzplanItem> {
 
         PutzplanItem p = getItem(position);
 
+        if(p == null){
+            Log.d("check", "getView: ist null");
+        }
+
         if (p != null) {
+
+            Log.d("check", "getView: ist nicht null");
             TextView titel = (TextView) v.findViewById(R.id.titel_list_view);
             TextView date = (TextView) v.findViewById(R.id.date_list_view);
-            TextView name = (TextView) v.findViewById(R.id.name_list_view);
+            TextView frequenz = (TextView) v.findViewById(R.id.frequenz_list_view);
             TextView aufwand = (TextView) v.findViewById(R.id.aufwand_list_view);
             ImageView pic = (ImageView) v.findViewById(R.id.img_list_view);
 
-            if (titel != null) {
                 titel.setText(p.getTitel());
-            }
+                Log.d("check", "Titel: "+titel.getText());
 
-            if (date != null) {
                 date.setText(p.getDate());
-            }
+                Log.d("check", "Date: "+date.getText());
 
-            if (name != null) {
-                name.setText(p.getName());
-            }
-            if (aufwand != null) {
+                frequenz.setText(p.getName());
+                Log.d("check", "Name: "+frequenz.getText());
+
                 aufwand.setText(p.getAufwand());
-            }
+                Log.d("check", "Aufwand: "+aufwand.getText());
 
-           /* if (pic != null) {
-                pic.setImageDrawable();
-            }
-
-           */
         }
 
         return v;

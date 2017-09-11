@@ -1,5 +1,6 @@
 package ur.mi.android.wgplus05;
 
+import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
@@ -71,6 +72,7 @@ public class Einkaufsliste extends AppCompatActivity {
         });
 
     }
+
 
     private void setUpLayout(){
         mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);

@@ -1,6 +1,7 @@
 package ur.mi.android.wgplus05;
 
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
     private EinkaufsAdapter item_adapter;
     private CalendarDB EKDB;
     private FrameLayout mainLayout;
+    private TextView wasbrauchenwirnoch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,19 @@ public class Einkaufsliste2 extends AppCompatActivity {
         setContentView(R.layout.activity_einkaufsliste);
         setTitle("#NudelnUndWasNoch?");
         setupButton();
+        setUpTextView();
         initTaskList();
         initDatabase();
         initListView();
         refreshArrayList();
         mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);
+
+    }
+
+    private void setUpTextView(){
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "IndieFlower.ttf");
+        wasbrauchenwirnoch = (TextView)findViewById(R.id.wasbrauchenwirnoch);
+        wasbrauchenwirnoch.setTypeface(myTypeface);
 
     }
 
