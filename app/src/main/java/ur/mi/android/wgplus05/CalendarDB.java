@@ -32,6 +32,8 @@ public class CalendarDB {
     private static final String DATABASE_TABLE3 = "wgname";
     //DB-Table für User
     private static final String DATABASE_TABLE4 = "username";
+    //DB-Table für Putzplan
+    private static final String DATABASE_TABLE5 = "putzplan";
     //Keys für Calendar
     public static final String KEY_ID = "_id";
     public static final String KEY_TASK = "task";
@@ -45,6 +47,14 @@ public class CalendarDB {
     public static final String KEY_NAMEWG = "name";
     //Keys für DBUserName
     public static final String KEY_NAMEUSER = "name";
+    //Keys für Putzplan
+    public static final String KEY_TITEL = "titel";
+    public static final String KEY_FREQUENZ = "frequenz";
+    public static final String KEY_DATUM = "datum";
+    public static final String KEY_TAG = "tag";
+    public static final String KEY_NAMEP = "name";
+    public static final String KEY_AUFWAND = "aufwand";
+    public static final String KEY_BILD = "bild";
 
     public static final int COLUMN_TASK_INDEX = 1;
     public static final int COLUMN_DATE_INDEX = 2;
@@ -78,6 +88,16 @@ public class CalendarDB {
         itemValues.put(KEY_TASK, item.getName());
         itemValues.put(KEY_DATE, item.getFormattedDate());
         return db.insert(DATABASE_TABLE, null, itemValues);
+    }
+    public long insertPItem(PutzplanItem item) {
+        ContentValues itemValues = new ContentValues();
+        itemValues.put(KEY_NAMEP, item.getName());
+        itemValues.put(KEY_TITEL, item.getTitel());
+        itemValues.put(KEY_DATUM, item.getDate());
+        itemValues.put(KEY_AUFWAND, item.getAufwand());
+        itemValues.put(KEY_FREQUENZ, item.getFrequenz());
+        itemValues.put(KEY_TAG, item.getTag());
+        return db.insert(DATABASE_TABLE5, null, itemValues);
     }
     //Insert-Methode für Einkauf
     public long insertEinkaufItem(EinkaufsItem item) {
@@ -169,6 +189,26 @@ public class CalendarDB {
         }
         return items;
     }
+    //get Putzplan
+    public ArrayList<PutzplanItem> getAllPutzplanItems() {
+        ArrayList<PutzplanItem> items = new ArrayList<PutzplanItem>();
+        Cursor cursor = db.query(DATABASE_TABLE5, new String[] {KEY_ID,
+                KEY_NAMEP, KEY_TITEL, KEY_DATUM, KEY_AUFWAND, KEY_FREQUENZ,KEY_TAG}, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(1);
+                String titel = cursor.getString(2);
+                String datum = cursor.getString(3);
+                int aufwand = cursor.getInt(4);
+                String frequenz = cursor.getString(5);
+                String tag = cursor.getString(6);
+                items.add(new PutzplanItem(name,titel,datum,tag,frequenz,aufwand));
+
+            } while (cursor.moveToNext());
+        }
+        return items;
+    }
     //get WGName
     public String getWGName() {
         String name ="";
@@ -223,6 +263,11 @@ public class CalendarDB {
                 + " integer primary key autoincrement, " + KEY_NAMEUSER
                 + " text not null);";
 
+        private static final String DATABASE_CREATE5 = "create table "
+                + DATABASE_TABLE5 + " (" + KEY_ID
+                + " integer primary key autoincrement, " + KEY_NAMEP
+                + " text not null, "+ KEY_TITEL +" text, "+KEY_DATUM+ " text, "+KEY_AUFWAND+" integer, "+KEY_FREQUENZ+ " text, " +KEY_TAG+ " text );";
+
         public ToDoDBOpenHelper(Context c, String dbname,
                                 SQLiteDatabase.CursorFactory factory, int version) {
             super(c, dbname, factory, version);
@@ -236,6 +281,7 @@ public class CalendarDB {
             db.execSQL(DATABASE_CREATE2);
             db.execSQL(DATABASE_CREATE3);
             db.execSQL(DATABASE_CREATE4);
+            db.execSQL(DATABASE_CREATE5);
             db.execSQL("INSERT INTO "+DATABASE_TABLE3+"("+KEY_NAMEWG+") VALUES ('Name der WG')");
             db.execSQL("INSERT INTO "+DATABASE_TABLE4+"("+KEY_NAMEUSER+") VALUES ('Dein Name')");
         }

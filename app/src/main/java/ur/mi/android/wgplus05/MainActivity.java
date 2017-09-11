@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton putzplanButton;
     private LinearLayout mainLayout;
     private static String name;
+    private CalendarDB DB;
 
 
     @Override
@@ -40,12 +41,19 @@ public class MainActivity extends AppCompatActivity {
         initButtons();
         initOnClickListener();
         initLayout();
+        initDB();
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 checkFirstRun();
             }
         }, 100);
+
+    }
+
+    private void initDB() {
+        DB = new CalendarDB(this);
+        DB.open();
 
     }
 
@@ -165,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (editName.getText().toString().length() != 0) {
                     name = editName.getText().toString();
+                    DB.insertWgUserName(name);
                     popupWindow.dismiss();
                     Log.d("name", name);
                 } else

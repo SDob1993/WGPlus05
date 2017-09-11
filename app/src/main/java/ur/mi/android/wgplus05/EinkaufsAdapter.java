@@ -45,9 +45,6 @@ public class EinkaufsAdapter extends ArrayAdapter<EinkaufsItem> {
         if (item != null) {
             TextView itemName = (TextView) v.findViewById(R.id.item_name);
             itemName.setTypeface(myTypeFace);
-
-
-
             itemName.setText(item.getName());
 
         }

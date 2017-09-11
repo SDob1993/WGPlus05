@@ -47,6 +47,8 @@ public class Putzplan extends ActionBarActivity {
 
     private String dateString;
 
+    private CalendarDB PDB;
+
     private PutzplanItemAdapter customAdapter;
 
     private ListView listView;
@@ -59,11 +61,12 @@ public class Putzplan extends ActionBarActivity {
         setContentView(R.layout.activity_putzplan_neu);
         setTitle("#EinerMussesMachen");
         mainLayout = (FrameLayout) findViewById(R.id.activty_putzplan);
-
+        initDB();
         initListViews();
         initButtons();
         initOnClickListener();
         setUpListViews();
+        refreshArrayList();
 
     }
 
@@ -88,6 +91,16 @@ public class Putzplan extends ActionBarActivity {
                 showPopupAdd(v);
             }
         });
+    }
+    private void initDB() {
+        PDB = new CalendarDB(this);
+        PDB.open();
+    }
+    private void refreshArrayList() {
+        ArrayList tempList = PDB.getAllPutzplanItems();
+        ArrayListUser.clear();
+        ArrayListUser.addAll(tempList);
+        customAdapter.notifyDataSetChanged();
     }
 
 
@@ -156,6 +169,7 @@ public class Putzplan extends ActionBarActivity {
                 if (!(titel.getText() == null || editDay.getText() == null)) {
                     PutzplanItem putzplanItem = new PutzplanItem(titel.getText().toString(), spinnerFrequenz.getSelectedItem().toString(),
                             dateString, editDay.getText().toString(), "Lukas", numberPicker.getValue());
+                    PDB.insertPItem(putzplanItem);
                     ArrayListUser.add(putzplanItem);
                     customAdapter.notifyDataSetChanged();
                     popupWindow.dismiss();

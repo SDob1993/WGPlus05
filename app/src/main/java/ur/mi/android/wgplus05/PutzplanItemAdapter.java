@@ -3,6 +3,7 @@ package ur.mi.android.wgplus05;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,12 @@ public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
     private ArrayList<PutzplanItem> taskList;
     private Context context;
 
+
     public PutzplanItemAdapter(Context context, ArrayList<PutzplanItem> listItems) {
-        super(context, R.layout.listview_edit, listItems);
+        super(context, R.layout.list_view_layout, listItems);
         this.context = context;
         this.taskList = listItems;
+
     }
 
     @Override
@@ -32,7 +35,7 @@ public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.listview_edit, null);
+            v = inflater.inflate(R.layout.list_view_layout, null);
 
         }
 
@@ -44,7 +47,7 @@ public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
             TextView date = (TextView) v.findViewById(R.id.date_list_view);
             TextView frequenz = (TextView) v.findViewById(R.id.frequenz_list_view);
             TextView aufwand = (TextView) v.findViewById(R.id.aufwand_list_view);
-            ImageView pic = (ImageView) v.findViewById(R.id.img_list_view);
+           // ImageView pic = (ImageView) v.findViewById(R.id.img_list_view);
 
             if (titel != null) {
                 titel.setText(putzplanItem.getTitel());
@@ -59,7 +62,7 @@ public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
                 Log.d("check", "Name: " + frequenz.getText());
             }
             if (aufwand != null) {
-                aufwand.setText(putzplanItem.getAufwand());
+                aufwand.setText(""+putzplanItem.getAufwand());
                 Log.d("check", "Aufwand: " + aufwand.getText());
             }
         }

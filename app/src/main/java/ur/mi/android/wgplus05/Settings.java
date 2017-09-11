@@ -64,7 +64,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!usernameSetted)
-                    showPopupName(v);
+                    //showPopupName(v);
                 usernameSetted=true;
             }
 
@@ -110,8 +110,8 @@ public class Settings extends AppCompatActivity {
         });
 
     }
-
-    public void showPopupName(View anchorView) {
+    //Pup-Up to set UserName
+   /* public void showPopupName(View anchorView) {
 
         // get a reference to the already created main layout
 
@@ -148,7 +148,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
     private void initDatabase() {
         SEDB = new CalendarDB(this);
