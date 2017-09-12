@@ -3,6 +3,7 @@ package ur.mi.android.wgplus05;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -21,9 +22,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import ur.mi.android.wgplus05.Camera;
 import ur.mi.android.wgplus05.ImageAdapter;
@@ -33,14 +44,17 @@ import ur.mi.android.wgplus05.R;
 public class PictureActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1;
     private Camera camera;
-    private ImageAdapter gridAdapter;
+    private ImageAdapter listAdapter;
     private static final int MY_PERMISSION_CAMERA = 1;
+    private FrameLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initCamera();
         initUI();
+        mainLayout = (FrameLayout) findViewById(R.id.fotowand);
+
     }
 
     private void initCamera() {
@@ -51,17 +65,10 @@ public class PictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_foto_wand);
         Point displaySize = getDisplaySize();
 
-       GridView grid = (GridView) findViewById(R.id.photo_grid);
-        gridAdapter = new ImageAdapter(this, displaySize);
-        grid.setAdapter(gridAdapter);
+       ListView list = (ListView) findViewById(R.id.listview_foto_item);
+        listAdapter = new ImageAdapter(this, displaySize);
+        list.setAdapter(listAdapter);
 
-        ImageButton cameraButton = (ImageButton) findViewById(R.id.button_camera);
-        cameraButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkPermission();
-            }
-        });
     }
 
     @Override
@@ -98,14 +105,16 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     private void checkPermission() {
-        int permissionCheck = ContextCompat.checkSelfPermission(this,
+        int permissionCheckCamera = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA);
-        if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+        int permissionCheckWriteExStorage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheckWriteExStorage == PackageManager.PERMISSION_DENIED || permissionCheckCamera == PackageManager.PERMISSION_DENIED) {
 
                 Log.d("photo", "permission ist nicht da ");
 
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_CAMERA);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
@@ -124,11 +133,11 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     private void processPicture(String path) {
-        Point imageSize = new Point(getDisplaySize().x / 2, getDisplaySize().y / 2);
+        Point imageSize = new Point(getDisplaySize().x, getDisplaySize().y);
         Bitmap image = camera.getScaledBitmap(path, imageSize);
 
-        gridAdapter.addImage(image);
-        gridAdapter.notifyDataSetChanged();
+
+        showPopupImage(image);
     }
 
     private Point getDisplaySize() {
@@ -143,6 +152,47 @@ public class PictureActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             processPicture(camera.getCurrentPhotoPath());
         }
+    }
+
+    public void showPopupImage(final Bitmap image) {
+
+        // get a reference to the already created main layout
+
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+
+        // show the popup window
+        popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
+
+        final ImageView imageView = (ImageView) popupView.findViewById(R.id.foto_image_popup);
+
+        final EditText editText = (EditText) popupView.findViewById(R.id.foto_edit_commentary_popup);
+
+        final Button buttonAdd = (Button) popupView.findViewById(R.id.foto_button_popup);
+
+
+
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FotoItem fotoItem = new FotoItem(editText.getText().toString(), image);
+                listAdapter.addFotoItem(fotoItem);
+                listAdapter.notifyDataSetChanged();
+                popupWindow.dismiss();
+
+            }
+        });
     }
 
 
