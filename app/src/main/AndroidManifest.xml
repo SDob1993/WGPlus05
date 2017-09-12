@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ur.mi.android.wgplus05">
 
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_icon_hdx"
@@ -10,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name=".MainActivity">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +29,12 @@
         <activity android:name=".Einkaufsliste2" />
         <activity android:name=".toDoList" />
         <activity android:name=".Settings" />
-        <activity android:name=".FotoWand" />
+        <activity android:name=".PictureActivity" />
         <activity
             android:name=".Putzplan"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Kalender" />
+
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 checkFirstRun();
             }
-        }, 100);
+        }, 300);
 
     }
 
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         blackboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,FotoWand.class);
+                Intent intent = new Intent(MainActivity.this,PictureActivity.class);
                 startActivity(intent);
             }
         });
