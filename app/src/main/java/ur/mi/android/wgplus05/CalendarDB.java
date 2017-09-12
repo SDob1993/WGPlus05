@@ -139,6 +139,14 @@ public class CalendarDB {
         db.delete(DATABASE_TABLE, toDelete, deleteArguments);
 
     }
+    //Remove-Methode für Calendar
+    public void removePutzplanItem(PutzplanItem item) {
+
+        String toDelete = KEY_NAMEP + "=?";
+        String[] deleteArguments = new String[]{item.getName()};
+        db.delete(DATABASE_TABLE5, toDelete, deleteArguments);
+
+    }
     public void removeEinkaufItem(EinkaufsItem item) {
 
         String toDelete = KEY_NAME + "=?";
