@@ -3,6 +3,7 @@ package ur.mi.android.wgplus05;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,8 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import ur.mi.android.wgplus05.Camera;
 import ur.mi.android.wgplus05.ImageAdapter;
 import ur.mi.android.wgplus05.R;
@@ -44,14 +47,17 @@ import ur.mi.android.wgplus05.R;
 public class PictureActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1;
     private Camera camera;
-    private ImageAdapter listAdapter;
+    private FotoItemAdapter listAdapter;
     private static final int MY_PERMISSION_CAMERA = 1;
     private FrameLayout mainLayout;
+    private ArrayList<FotoItem> posts;
+    private ImageAdapter gridAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initCamera();
+        initPostList();
         initUI();
         mainLayout = (FrameLayout) findViewById(R.id.fotowand);
 
@@ -61,13 +67,22 @@ public class PictureActivity extends AppCompatActivity {
         camera = new Camera(this);
     }
 
+    private void initPostList() {
+        posts = new ArrayList<>();
+    }
+
     private void initUI() {
         setContentView(R.layout.activity_foto_wand);
         Point displaySize = getDisplaySize();
 
-       ListView list = (ListView) findViewById(R.id.listview_foto_item);
-        listAdapter = new ImageAdapter(this, displaySize);
-        list.setAdapter(listAdapter);
+        GridView grid = new GridView(getApplicationContext());
+        gridAdapter = new ImageAdapter(this, displaySize);
+        grid.setAdapter(gridAdapter);
+
+        ListView listView = (ListView) findViewById(R.id.listview_foto_item);
+        listAdapter = new FotoItemAdapter(this,posts);
+        listView.setAdapter(listAdapter);
+
 
     }
 
@@ -136,8 +151,11 @@ public class PictureActivity extends AppCompatActivity {
         Point imageSize = new Point(getDisplaySize().x, getDisplaySize().y);
         Bitmap image = camera.getScaledBitmap(path, imageSize);
 
+        gridAdapter.addImage(image);
+        gridAdapter.notifyDataSetChanged();
 
-        showPopupImage(image);
+
+
     }
 
     private Point getDisplaySize() {
@@ -151,21 +169,24 @@ public class PictureActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             processPicture(camera.getCurrentPhotoPath());
+            Log.d("foto",Integer.toString(requestCode)+" "+ Integer.toString(resultCode));
         }
+            showPopupImage();
     }
 
-    public void showPopupImage(final Bitmap image) {
+
+    public void showPopupImage() {
 
         // get a reference to the already created main layout
 
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = inflater.inflate(R.layout.fragment_putzplan, null);
+        final View popupView = inflater.inflate(R.layout.layout_popup_image, null);
 
         // create the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.MATCH_PARENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
@@ -175,6 +196,7 @@ public class PictureActivity extends AppCompatActivity {
 
 
         final ImageView imageView = (ImageView) popupView.findViewById(R.id.foto_image_popup);
+        imageView.setImageBitmap(gridAdapter.getItem(gridAdapter.getCount()-1));
 
         final EditText editText = (EditText) popupView.findViewById(R.id.foto_edit_commentary_popup);
 
@@ -186,8 +208,8 @@ public class PictureActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FotoItem fotoItem = new FotoItem(editText.getText().toString(), image);
-                listAdapter.addFotoItem(fotoItem);
+                FotoItem fotoItem = new FotoItem(editText.getText().toString(), gridAdapter.getItem(gridAdapter.getCount()-1));
+                posts.add(fotoItem);
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
 

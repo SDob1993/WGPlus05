@@ -17,7 +17,7 @@ public class FotoItem extends PictureActivity{
     public FotoItem(String commentary, Bitmap image){
         this.commentary = commentary;
         this.image = image;
-        user = SEDB.getUserName();
+        user = "Lukas"; // SEDB.getUser();
         //avatar = SEDB.getAvatar();
         thumbcount = 0;
     }
@@ -40,6 +40,14 @@ public class FotoItem extends PictureActivity{
 
     public int getThumbcount(){
         return thumbcount;
+    }
+
+    public String getUser(){
+     /*   if(SEDB.getUserName() != null){
+            return SEDB.getUserName();
+        } else return "Hans";
+        */
+     return "Hans";
     }
 
 }

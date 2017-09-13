@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp">
+        >
 
         <ImageView
             android:layout_width="40dp"
@@ -21,8 +21,9 @@
         android:layout_height="wrap_content"
         android:text="Lukas"
         android:textSize="28sp"
-        android:layout_margin="5dp"
         android:id="@+id/name_foto_user"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
         />
 
 
@@ -31,7 +32,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="345dp"
-        android:background="@color/colorAccent"
+        android:background="@color/Black"
         android:id="@+id/foto_view"
         />
     <TextView
