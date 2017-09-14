@@ -15,7 +15,7 @@ public class CommentaryItem {
     public CommentaryItem(Context context, String commentary){
         this.commentary = commentary;
         CDB = new CalendarDB(context);
-        this.user =/* CDB.getUserName(); */ "Hans ohne Schwanz";
+        this.user =/* CDB.getUserName(); */ "Hans";
     }
 
     public String getCommentary(){
@@ -23,10 +23,7 @@ public class CommentaryItem {
     }
 
     public String getUser(){
-        if (user != null){
-            return user;
-        }
-        else return "Hans";
+        return user;
     }
 
 }
