@@ -52,6 +52,7 @@ public class PictureActivity extends AppCompatActivity {
     private FrameLayout mainLayout;
     private ArrayList<FotoItem> posts;
     private ImageAdapter gridAdapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class PictureActivity extends AppCompatActivity {
         gridAdapter = new ImageAdapter(this, displaySize);
         grid.setAdapter(gridAdapter);
 
-        ListView listView = (ListView) findViewById(R.id.listview_foto_item);
+        listView = (ListView) findViewById(R.id.listview_foto_item);
         listAdapter = new FotoItemAdapter(this,posts);
         listView.setAdapter(listAdapter);
 
@@ -209,9 +210,11 @@ public class PictureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FotoItem fotoItem = new FotoItem(editText.getText().toString(), gridAdapter.getItem(gridAdapter.getCount()-1));
-                posts.add(fotoItem);
+                posts.add(0, fotoItem);
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
+                listView.smoothScrollToPosition(0);
+
 
             }
         });
