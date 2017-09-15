@@ -34,6 +34,15 @@
             android:name=".Putzplan"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Kalender" />
+        <provider
+            android:name=".GenericFileProvider"
+            android:authorities="${applicationId}.genericfileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
 
     </application>
 

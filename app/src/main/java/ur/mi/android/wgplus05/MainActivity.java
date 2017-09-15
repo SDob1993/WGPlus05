@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 checkFirstRun();
             }
-        }, 300);
+        }, 2000);
 
     }
 

@@ -1,7 +1,12 @@
 package ur.mi.android.wgplus05;
 
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
@@ -115,6 +121,13 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
                     });
                 }
         });
+
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         } return v;
     }

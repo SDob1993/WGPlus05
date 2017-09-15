@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,16 +28,31 @@ public class Camera {
 
     public void takePicture(int requestCode) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(activityContext.getPackageManager()) != null) {
+            // Create the File where the photo should go
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
+                // Error occurred while creating the File
+                return;
             }
+            // Continue only if the File was successfully created
+
             if (photoFile != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
+                if(Build.VERSION.SDK_INT < 24){
+                Uri photoURI = Uri.fromFile(photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 activityContext.startActivityForResult(takePictureIntent, requestCode);
+            }
+            else {
+                Uri photoURI = FileProvider.getUriForFile(activityContext,
+                        BuildConfig.APPLICATION_ID + ".genericfileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                activityContext.startActivityForResult(takePictureIntent, requestCode);
+            }
             }
         }
     }
@@ -73,6 +90,6 @@ public class Camera {
         currentPhotoPath = image.getAbsolutePath();
 
         return image;
-    }
 
+    }
 }
