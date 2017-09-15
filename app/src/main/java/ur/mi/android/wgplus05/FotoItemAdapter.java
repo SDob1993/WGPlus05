@@ -125,7 +125,28 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Bitmap icon = fotoItem.getImage();
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("image/jpeg");
 
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.TITLE, "title");
+                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                    Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            values);
+
+
+                    OutputStream outstream;
+                    try {
+                        outstream = context.getContentResolver().openOutputStream(uri);
+                        icon.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                        outstream.close();
+                    } catch (Exception e) {
+                        System.err.println(e.toString());
+                    }
+
+                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                    context.startActivity(Intent.createChooser(share, "Share Image"));
                 }
             });
 

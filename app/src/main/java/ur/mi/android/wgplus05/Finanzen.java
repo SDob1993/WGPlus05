@@ -17,7 +17,7 @@ public class Finanzen extends AppCompatActivity {
         setContentView(R.layout.activity_finanzen);
         setTitle("#MoneyTalk");
 
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "IndieFlower.ttf");
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Jomblo Ngenes.ttf");
         guthaben = (TextView)findViewById(R.id.guthaben);
         guthaben.setTypeface(myTypeface);
         guthabenAnzeige = (TextView)findViewById(R.id.guthabenAnzeige);

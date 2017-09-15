@@ -24,7 +24,7 @@ public class CommentaryAdapter extends ArrayAdapter<CommentaryItem>{
             super(context, R.layout.list_element_commentary, commentaryItems);
             this.context = context;
             this.commentary = commentaryItems;
-            myTypeFace = Typeface.createFromAsset(context.getAssets(), "IndieFlower.ttf");
+            myTypeFace = Typeface.createFromAsset(context.getAssets(), "Jomblo Ngenes.ttf");
         }
 
         @Override
