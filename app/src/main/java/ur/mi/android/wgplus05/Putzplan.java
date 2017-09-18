@@ -176,7 +176,7 @@ public class Putzplan extends ActionBarActivity {
                 }
                 if (!(titel.getText() == null || editDay.getText() == null)) {
                     PutzplanItem putzplanItem = new PutzplanItem(titel.getText().toString(), spinnerFrequenz.getSelectedItem().toString(),
-                            dateString, editDay.getText().toString(), "Lukas", numberPicker.getValue());
+                            dateString, editDay.getText().toString(), PDB.getUserName(), numberPicker.getValue());
                     PDB.insertPItem(putzplanItem);
                     ArrayListUser.add(putzplanItem);
                     customAdapter.notifyDataSetChanged();

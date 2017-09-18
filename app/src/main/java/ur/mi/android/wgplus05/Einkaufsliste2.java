@@ -138,9 +138,9 @@ public class Einkaufsliste2 extends AppCompatActivity {
             public void onClick(View v) {
                 final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue();
                 if(!preis.equals("0.0")) {
-                    FinanzenEntry finanzen = new FinanzenEntry(Double.parseDouble(preis));
-                    EKDB.insertFinanzenGes(finanzen);
-                    finanzen.addGuthabenDouble(Double.parseDouble(preis));
+                    double preisneu =Double.parseDouble(preis)+EKDB.getGuthaben();
+                    String username = EKDB.getUserName();
+                    EKDB.insertFinanzen(preisneu,username);
                     popupWindow.dismiss();
                 }
                 else Toast.makeText(getApplicationContext(),"Dann gibts halt wieder Nudeln",Toast.LENGTH_LONG).show();

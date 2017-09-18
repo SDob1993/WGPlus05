@@ -84,9 +84,9 @@ public class Settings extends AppCompatActivity {
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);}
 
-
+        /*
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
@@ -109,7 +109,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
     //Pup-Up to set UserName
    /* public void showPopupName(View anchorView) {
 

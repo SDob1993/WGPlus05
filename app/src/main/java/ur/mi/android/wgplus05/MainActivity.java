@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton putzplanButton;
     private LinearLayout mainLayout;
     private static String name;
+    private static String wgname;
     private CalendarDB DB;
 
 
@@ -166,19 +167,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         final EditText editName = (EditText) popupView.findViewById(R.id.edit_name);
+        final EditText editWgname = (EditText) popupView.findViewById(R.id.edit_wgname);
 
         final Button button = (Button) popupView.findViewById(R.id.edit_ok_button_name);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editName.getText().toString().length() != 0) {
+                if (editName.getText().toString().length() != 0 &&editWgname.getText().toString().length() != 0) {
                     name = editName.getText().toString();
+                    wgname = editWgname.getText().toString();
                     DB.insertWgUserName(name);
+                    DB.insertWgName(wgname);
+                    DB.insertNewUser(name,wgname);
                     popupWindow.dismiss();
                     Log.d("name", name);
                 } else
-                    Toast.makeText(getApplicationContext(), "Dann gibts halt wieder Nudeln", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Bitte geb deinen Namen und den Namen deiner WG ein", Toast.LENGTH_LONG).show();
             }
         });
 

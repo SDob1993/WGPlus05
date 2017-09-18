@@ -10,18 +10,22 @@ public class Finanzen extends AppCompatActivity {
     private TextView guthaben;
     private TextView guthabenAnzeige;
     private double guthabenDouble;
+    private CalendarDB DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finanzen);
         setTitle("#MoneyTalk");
+        DB = new CalendarDB(this);
+        DB.open();
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "IndieFlower.ttf");
         guthaben = (TextView)findViewById(R.id.guthaben);
         guthaben.setTypeface(myTypeface);
         guthabenAnzeige = (TextView)findViewById(R.id.guthabenAnzeige);
         guthabenAnzeige.setTypeface(myTypeface);
+        guthaben.setText(""+Double.toString(DB.getGuthaben())+"€");
     }
 
 
