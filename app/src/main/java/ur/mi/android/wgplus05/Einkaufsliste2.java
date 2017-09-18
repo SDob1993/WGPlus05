@@ -50,7 +50,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
     }
 
     private void setUpTextView(){
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "IndieFlower.ttf");
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Jomblo Ngenes.ttf");
         wasbrauchenwirnoch = (TextView)findViewById(R.id.wasbrauchenwirnoch);
         wasbrauchenwirnoch.setTypeface(myTypeface);
 

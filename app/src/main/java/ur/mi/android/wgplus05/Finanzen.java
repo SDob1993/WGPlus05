@@ -20,7 +20,7 @@ public class Finanzen extends AppCompatActivity {
         DB = new CalendarDB(this);
         DB.open();
 
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "IndieFlower.ttf");
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Jomblo Ngenes.ttf");
         guthaben = (TextView)findViewById(R.id.guthaben);
         guthaben.setTypeface(myTypeface);
         guthabenAnzeige = (TextView)findViewById(R.id.guthabenAnzeige);

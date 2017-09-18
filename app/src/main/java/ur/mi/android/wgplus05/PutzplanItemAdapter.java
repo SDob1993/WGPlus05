@@ -58,7 +58,7 @@ public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
                 Log.d("check", "Date: " + date.getText());
             }
             if (frequenz != null) {
-                frequenz.setText(putzplanItem.getName());
+                frequenz.setText(putzplanItem.getFrequenz());
                 Log.d("check", "Name: " + frequenz.getText());
             }
             if (aufwand != null) {

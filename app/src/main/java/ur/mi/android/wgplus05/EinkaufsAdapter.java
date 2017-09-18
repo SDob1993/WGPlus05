@@ -25,7 +25,7 @@ public class EinkaufsAdapter extends ArrayAdapter<EinkaufsItem> {
         super(context, R.layout.ekitem_layout, einkaufsItems);
         this.context = context;
         this.einkaufList = einkaufsItems;
-        myTypeFace = Typeface.createFromAsset(context.getAssets(), "IndieFlower.ttf");
+        myTypeFace = Typeface.createFromAsset(context.getAssets(), "Jomblo Ngenes.ttf");
     }
 
     @Override
