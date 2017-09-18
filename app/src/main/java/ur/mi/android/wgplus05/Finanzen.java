@@ -25,7 +25,7 @@ public class Finanzen extends AppCompatActivity {
         guthaben.setTypeface(myTypeface);
         guthabenAnzeige = (TextView)findViewById(R.id.guthabenAnzeige);
         guthabenAnzeige.setTypeface(myTypeface);
-        guthaben.setText(""+Double.toString(DB.getGuthaben())+"€");
+        guthaben.setText(""+Double.toString(Math.round(DB.getGuthaben()))+"€");
     }
 
 

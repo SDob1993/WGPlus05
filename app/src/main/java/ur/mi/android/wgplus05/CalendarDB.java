@@ -106,8 +106,13 @@ public class CalendarDB {
 
     //Insert-Methdoe für Finanzen
     public void insertFinanzen(double guthaben, String username) {
-        db.execSQL("UPDATE "+DATABASE_TABLE2+" SET "+KEY_GESAMT+" = '"+guthaben+"' ,"+KEY_GUTHABEN+" = '"+guthaben+"'" +
+        db.execSQL("UPDATE "+DATABASE_TABLE2+" SET "+KEY_GUTHABEN+" = '"+guthaben+"'" +
                 "WHERE name = '"+username+"';");
+
+    }
+
+    public void insertFinanzenGes(double guthaben, String wgname) {
+        db.execSQL("UPDATE "+DATABASE_TABLE2+" SET "+KEY_GESAMT+" = '"+guthaben+"' WHERE wgname = '"+wgname+"';");
 
     }
 
@@ -246,6 +251,19 @@ public class CalendarDB {
         double guthaben = 0;
         Cursor cursor = db.query(DATABASE_TABLE2, new String[] {
                 KEY_GUTHABEN}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                guthaben = cursor.getDouble(0);
+
+            } while (cursor.moveToNext());
+        }
+        return guthaben;
+    }
+    //get GuthabenGesamt
+    public double getGuthabenGes() {
+        double guthaben = 0;
+        Cursor cursor = db.query(DATABASE_TABLE2, new String[] {
+                KEY_GESAMT}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 guthaben = cursor.getDouble(0);

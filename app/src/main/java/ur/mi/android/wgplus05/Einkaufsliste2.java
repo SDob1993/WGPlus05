@@ -139,7 +139,10 @@ public class Einkaufsliste2 extends AppCompatActivity {
                 final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue();
                 if(!preis.equals("0.0")) {
                     double preisneu =Double.parseDouble(preis)+EKDB.getGuthaben();
+                    double preisneuges =Double.parseDouble(preis)+EKDB.getGuthabenGes();
+                    String wgname = EKDB.getWGName();
                     String username = EKDB.getUserName();
+                    EKDB.insertFinanzenGes(preisneuges,wgname);
                     EKDB.insertFinanzen(preisneu,username);
                     popupWindow.dismiss();
                 }
