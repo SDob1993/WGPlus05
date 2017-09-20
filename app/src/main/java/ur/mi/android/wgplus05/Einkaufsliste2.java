@@ -151,13 +151,16 @@ public class Einkaufsliste2 extends AppCompatActivity {
         final NumberPicker preis_cent = (NumberPicker) popupView.findViewById(R.id.edit_einkaufsliste_preis_cent);
         preis_cent.setMaxValue(99);
         final Button button = (Button) popupView.findViewById(R.id.einkaufsliste_popup_button_remove);
+        final TextView textView = (TextView) popupView.findViewById(R.id.edit_einkaufsliste_produkt);
+        textView.setText(items.get(position).getName());
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue()+"€";
+                final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue();
                 if(!preis.equals("0.0")) {
+                    Log.d("preis",preis);
                     double preisneu =Double.parseDouble(preis)+EKDB.getGuthaben();
                     double preisneuges =Double.parseDouble(preis)+EKDB.getGuthabenGes();
                     String wgname = EKDB.getWGName();
@@ -194,6 +197,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
+            Log.d("Name", items.get(position).getName());
                 showPopupRemove(position);
                 return true;
             }

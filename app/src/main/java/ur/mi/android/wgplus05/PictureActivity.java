@@ -53,6 +53,8 @@ public class PictureActivity extends AppCompatActivity {
     private ArrayList<FotoItem> posts;
     private ImageAdapter gridAdapter;
     private ListView listView;
+    private CalendarDB FDB;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +62,19 @@ public class PictureActivity extends AppCompatActivity {
         initCamera();
         initPostList();
         initUI();
+        initDB();
         mainLayout = (FrameLayout) findViewById(R.id.fotowand);
 
     }
 
     private void initCamera() {
         camera = new Camera(this);
+    }
+
+    private void initDB() {
+        FDB = new CalendarDB(this);
+        FDB.open();
+        name = FDB.getUserName();
     }
 
     private void initPostList() {
@@ -209,7 +218,7 @@ public class PictureActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FotoItem fotoItem = new FotoItem(editText.getText().toString(), gridAdapter.getItem(gridAdapter.getCount()-1));
+                FotoItem fotoItem = new FotoItem(editText.getText().toString(), gridAdapter.getItem(gridAdapter.getCount()-1),name);
                 posts.add(0, fotoItem);
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();

@@ -79,19 +79,13 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             final Button sendButton = (Button) v.findViewById(R.id.button_edit_add_comment);
             final ListView commentBox = (ListView) v.findViewById(R.id.listview_foto_commentary);
             final TextView avatar  = (TextView) v.findViewById(R.id.foto_avatar);
-            if (SEDB.getUserName()!= null) {
-                avatar.setText(SEDB.getUserName().charAt(0));
+            if (fotoItem.getUser()!= null) {
+                avatar.setText(Character.toString(fotoItem.getUser().charAt(0)));
             }
             comments = new ArrayList<>();
             commentaryAdapter = new CommentaryAdapter(context, comments);
             commentBox.setAdapter(commentaryAdapter);
 
-            /* user.setText(SEDB.getUserName());
-            Log.d("check", "Titel: "+SEDB.getUserName()); */
-
-            //    avatar.setText(p.getDate());
-            //    Log.d("check", "Date: "+date.getText());
-            user.setText(fotoItem.getUser());
             foto.setImageBitmap(fotoItem.getImage());
 
             thumbCount.setText(Integer.toString(fotoItem.getThumbcount()));
