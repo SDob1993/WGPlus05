@@ -112,7 +112,7 @@ public class CalendarDB {
     }
 
     public void insertFinanzenGes(double guthaben, String wgname) {
-        db.execSQL("UPDATE "+DATABASE_TABLE2+" SET "+KEY_GESAMT+" = '"+guthaben+"' WHERE wgname = '"+wgname+"';");
+        db.execSQL("UPDATE "+DATABASE_TABLE2+" SET "+KEY_GESAMT+" = '"+guthaben+"' WHERE "+KEY_GROUP+" = '"+wgname+"';");
 
     }
 
