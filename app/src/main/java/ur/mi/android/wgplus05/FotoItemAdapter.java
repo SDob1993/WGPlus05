@@ -68,7 +68,6 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
 
             Log.d("check", "getView: ist nicht null");
             TextView user = (TextView) v.findViewById(R.id.name_foto_user);
-            ImageView avatar = (ImageView) v.findViewById(R.id.avatar_foto_user);
             ImageView foto = (ImageView) v.findViewById(R.id.foto_view);
             TextView user_commentary = (TextView) v.findViewById(R.id.foto_user_commentary);
             final ImageButton thumbUp = (ImageButton) v.findViewById(R.id.foto_thumb_up);
@@ -79,6 +78,10 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             final LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.layout_invisbile);
             final Button sendButton = (Button) v.findViewById(R.id.button_edit_add_comment);
             final ListView commentBox = (ListView) v.findViewById(R.id.listview_foto_commentary);
+            final TextView avatar  = (TextView) v.findViewById(R.id.foto_avatar);
+            if (SEDB.getUserName()!= null) {
+                avatar.setText(SEDB.getUserName().charAt(0));
+            }
             comments = new ArrayList<>();
             commentaryAdapter = new CommentaryAdapter(context, comments);
             commentBox.setAdapter(commentaryAdapter);

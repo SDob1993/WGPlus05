@@ -57,44 +57,47 @@
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/layout_round_corners"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-    <EditText
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Dein Name"
-        android:textSize="26sp"
-        android:layout_gravity="center"
-        android:id="@+id/edit_name"
-        android:maxLines="1"
+        android:background="@drawable/layout_round_corners"
+        android:orientation="vertical"
 
-        />
-            <EditText
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+        >
 
-                android:hint="Deine WG"
-                android:textSize="26sp"
-                android:layout_gravity="center|bottom"
-                android:id="@+id/edit_wgname"
-                android:maxLines="1"
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:hint="Dein Name"
+            android:maxLines="1"
+            android:textSize="26sp"
+
+            />
+
+        <EditText
+            android:id="@+id/edit_wgname"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center|bottom"
+            android:layout_margin="10dp"
+            android:hint="Deine WG"
+            android:maxLines="1"
+            android:textSize="26sp"
 
 
-                />
+            />
 
         <Button
             android:id="@+id/edit_ok_button_name"
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:background="?android:selectableItemBackground"
-            android:text="OK"
             android:layout_gravity="center"
-            />
+            android:background="?android:selectableItemBackground"
+            android:text="OK" />
     </LinearLayout>
 
 

@@ -2,15 +2,19 @@ package ur.mi.android.wgplus05;
 
 import java.util.Date;
 
+/**
+ * Created by Gucci on 20.09.2017.
+ */
 
-
-public class EinkaufsItem {
+public class EinkaufsHistorieItem{
     private String name;
     private Date date;
+    private String preis;
 
-    public EinkaufsItem(String name) {
+    public EinkaufsHistorieItem(String name, Date date, String preis) {
         this.name = name;
         this.date = date;
+        this.preis = preis;
     }
 
 
@@ -26,7 +30,6 @@ public class EinkaufsItem {
 
     @Override
     public String toString() {
-        return "Name: " + getName() ;
+        return getName()+" am "+date+" für "+preis;
     }
 }
-

@@ -49,7 +49,7 @@ public class CustomListViewAdaper extends ArrayAdapter<PutzplanItem> {
             TextView date = (TextView) v.findViewById(R.id.date_list_view);
             TextView frequenz = (TextView) v.findViewById(R.id.frequenz_list_view);
             TextView aufwand = (TextView) v.findViewById(R.id.aufwand_list_view);
-            ImageView pic = (ImageView) v.findViewById(R.id.img_list_view);
+
 
                 titel.setText(p.getTitel());
                 Log.d("check", "Titel: "+titel.getText());

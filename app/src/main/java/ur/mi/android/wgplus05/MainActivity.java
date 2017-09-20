@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, false);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
 
         // show the popup window

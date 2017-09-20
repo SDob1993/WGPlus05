@@ -32,7 +32,7 @@ public class Kalender extends AppCompatActivity {
     private ArrayList<CalendarItem> tasks;
     private CalendarAdapter tasks_adapter;
     private CalendarDB toDoDB;
-    private LinearLayout mainLayout;
+    private FrameLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class Kalender extends AppCompatActivity {
         initDatabase();
         initListView();
         refreshArrayList();
-        mainLayout = (LinearLayout) findViewById(R.id.activity_kalender_id);
+        mainLayout = (FrameLayout) findViewById(R.id.activity_kalender_id);
 
         calendar = (CalendarView) findViewById(R.id.calendar);
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){

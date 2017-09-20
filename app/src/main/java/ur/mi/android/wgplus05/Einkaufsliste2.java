@@ -42,6 +42,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
     private Date date;
     private NotificationManager notificationManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
         initDatabase();
         initListView();
         refreshArrayList();
+        finanzen = new Finanzen();
         mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);
         date = new Date();
 
@@ -154,7 +156,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue();
+                final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue()+"€";
                 if(!preis.equals("0.0")) {
                     double preisneu =Double.parseDouble(preis)+EKDB.getGuthaben();
                     double preisneuges =Double.parseDouble(preis)+EKDB.getGuthabenGes();
@@ -164,6 +166,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
                     EKDB.insertFinanzen(preisneu,username);
                  //   finanzen = new Finanzen();
                  //   finanzen.addEinkaufsToHistory(items.get(position).getName(),date.toString(), Double.toString(preisneu));
+                    removeTaskAtPosition(position,preis);
                     popupWindow.dismiss();
                 }
                 else Toast.makeText(getApplicationContext(),"Dann gibts halt wieder Nudeln",Toast.LENGTH_LONG).show();
@@ -191,7 +194,6 @@ public class Einkaufsliste2 extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                removeTaskAtPosition(position);
                 showPopupRemove(position);
                 return true;
             }
@@ -215,10 +217,11 @@ public class Einkaufsliste2 extends AppCompatActivity {
 
     }
 
-    private void removeTaskAtPosition(int position) {
+    private void removeTaskAtPosition(int position, String preis) {
         if (items.get(position) != null) {
             EKDB.removeEinkaufItem(items.get(position));
             refreshArrayList();
+            finanzen.addItemToList(new EinkaufsHistorieItem(items.get(position).getName(), date, preis));
         }
     }
 

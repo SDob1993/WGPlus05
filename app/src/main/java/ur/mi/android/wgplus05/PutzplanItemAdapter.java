@@ -18,12 +18,15 @@ import java.util.ArrayList;
 public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
     private ArrayList<PutzplanItem> taskList;
     private Context context;
+    private CalendarDB SEDB;
 
 
     public PutzplanItemAdapter(Context context, ArrayList<PutzplanItem> listItems) {
         super(context, R.layout.list_view_layout, listItems);
         this.context = context;
         this.taskList = listItems;
+
+
 
     }
 
@@ -47,8 +50,10 @@ public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
             TextView date = (TextView) v.findViewById(R.id.date_list_view);
             TextView frequenz = (TextView) v.findViewById(R.id.frequenz_list_view);
             TextView aufwand = (TextView) v.findViewById(R.id.aufwand_list_view);
-           // ImageView pic = (ImageView) v.findViewById(R.id.img_list_view);
-
+            TextView avatar = (TextView) v.findViewById(R.id.putzplan_avatar);
+            if (taskList.get(position).getName()!= null) {
+                avatar.setText(taskList.get(position).getName().charAt(0));
+            }
             if (titel != null) {
                 titel.setText(putzplanItem.getTitel());
                 Log.d("check", "Titel: " + titel.getText());

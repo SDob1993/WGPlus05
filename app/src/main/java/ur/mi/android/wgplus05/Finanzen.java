@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Finanzen extends AppCompatActivity {
@@ -17,8 +18,9 @@ public class Finanzen extends AppCompatActivity {
     private double guthabenDouble;
     private CalendarDB DB;
     private ListView eingekaufteItems;
-    private ArrayList<String> eingekaufteItemsArraysList;
+    private ArrayList<EinkaufsHistorieItem> eingekaufteItemsArraysList;
     private ArrayAdapter<String> aa;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,14 @@ public class Finanzen extends AppCompatActivity {
         guthaben.setText(""+Double.toString(Math.round(DB.getGuthaben()))+"€");
         eingekaufteItems = (ListView) findViewById(R.id.bought_items);
         eingekaufteItemsArraysList = new ArrayList<>();
-        aa = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item);
+        aa = new ArrayAdapter<String>(this,R.layout.listview_einkauf_history);
         eingekaufteItems.setAdapter(aa);
         aa.notifyDataSetChanged();
 
     }
 
-    public void addEinkaufsToHistory(String Produkt, String date, String price){
-        eingekaufteItemsArraysList.add(Produkt+" "+"am "+date+" für "+price);
+    public void addItemToList(EinkaufsHistorieItem einkaufsHistorieItem){
+        eingekaufteItemsArraysList.add(einkaufsHistorieItem);
         aa.notifyDataSetChanged();
     }
 

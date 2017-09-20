@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="ur.mi.android.wgplus05.Kalender"
     android:id="@+id/activity_kalender_id">
+    
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:scaleType = "centerCrop"
+        android:src="@drawable/wgplus_background_blur"
+        android:alpha="0.3"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <CalendarView
         android:id="@+id/calendar"
@@ -21,5 +39,7 @@
         android:animateLayoutChanges="true"
         android:padding="10dp" />
 
+    </LinearLayout>
 
-</LinearLayout>
+
+</FrameLayout>

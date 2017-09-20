@@ -31,14 +31,23 @@
             android:layout_margin="10dp"
             >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/wg_empty_user"
-        android:layout_gravity="center"
-        android:id="@+id/button_change_avatar"
-        android:background="@drawable/layount_round_no_border"
-        />
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_round_no_border"
+                android:orientation="vertical"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A"
+                    android:textSize="39sp"
+                    android:layout_gravity="center"
+                    android:id="@+id/foto_avatar"
+                    />
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/TextViewSettings2"
