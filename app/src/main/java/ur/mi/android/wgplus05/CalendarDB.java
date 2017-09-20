@@ -23,22 +23,16 @@ public class CalendarDB {
     //DB allgemein
     private static final String DATABASE_NAME = "calendar.db";
     private static final int DATABASE_VERSION = 1;
-    //DB_Table für Calendar
-    private static final String DATABASE_TABLE = "todolistitems";
-    //DB_Table für Einkäufe
-    private static final String DATABASE_TABLE1 = "ekitems";
-    //DB_Table für FInanzen
-    private static final String DATABASE_TABLE2 = "user";
-    //DB_Table für WGName
-    private static final String GROUPTABLE = "wgname";
-    //DB-Table für Putzplan
+    //DB Tabellen
+    private static final String TERMINE = "termine";
+    private static final String EINKAUF = "einkauf";
+    private static final String BENUTZER = "benutzer";
+    private static final String DIESERBENUTZER = "dieserbenutzer";
     private static final String PUTZPLAN = "putzplan";
-    public static final String KEY_GROUP = "namewg";
     //Keys für Calendar
     public static final String KEY_ID = "_id";
     public static final String KEY_TASK = "task";
     public static final String KEY_DATE = "date";
-    //Keys für EInkaufsitem
     public static final String KEY_NAME = "name";
     //Keys für Finanzen
     public static final String KEY_GUTHABEN = "guthaben";
@@ -56,9 +50,6 @@ public class CalendarDB {
     public static final String KEY_AUFWAND = "aufwand";
     public static final String KEY_BILD = "bild";
 
-    public static final int COLUMN_TASK_INDEX = 1;
-    public static final int COLUMN_DATE_INDEX = 2;
-    public static final int COLUMN_NAME_INDEX = 1;
 
     private ToDoDBOpenHelper dbHelper;
 
@@ -85,7 +76,7 @@ public class CalendarDB {
         ContentValues itemValues = new ContentValues();
         itemValues.put(KEY_TASK, item.getName());
         itemValues.put(KEY_DATE, item.getFormattedDate());
-        return db.insert(DATABASE_TABLE, null, itemValues);
+        return db.insert(TERMINE, null, itemValues);
     }
     public long insertPItem(PutzplanItem item) {
         ContentValues itemValues = new ContentValues();
@@ -101,23 +92,23 @@ public class CalendarDB {
     public long insertEinkaufItem(EinkaufsItem item) {
         ContentValues itemValues = new ContentValues();
         itemValues.put(KEY_NAME, item.getName());
-        return db.insert(DATABASE_TABLE1, null, itemValues);
+        return db.insert(EINKAUF, null, itemValues);
     }
 
     //Insert-Methdoe für Finanzen
     public void insertFinanzen(double guthaben, String username) {
-        db.execSQL("UPDATE "+DATABASE_TABLE2+" SET "+KEY_GUTHABEN+" = '"+guthaben+"'" +
+        db.execSQL("UPDATE "+BENUTZER+" SET "+KEY_GUTHABEN+" = '"+guthaben+"'" +
                 "WHERE name = '"+username+"';");
 
     }
 
     public void insertFinanzenGes(double guthaben, String wgname) {
-        db.execSQL("UPDATE "+DATABASE_TABLE2+" SET "+KEY_GESAMT+" = '"+guthaben+"' WHERE "+KEY_GROUP+" = '"+wgname+"';");
+        db.execSQL("UPDATE "+BENUTZER+" SET "+KEY_GESAMT+" = '"+guthaben+"' WHERE "+KEY_NAMEWG+" = '"+wgname+"';");
 
     }
 
     public void insertNewUser(String name, String wgname){
-        db.execSQL("INSERT INTO "+DATABASE_TABLE2+" VALUES ('"+name+"', '0', '0','"+wgname+"');");
+        db.execSQL("INSERT INTO "+BENUTZER+" VALUES ('"+name+"', '0', '0','"+wgname+"');");
 
     }
 
@@ -125,14 +116,14 @@ public class CalendarDB {
     //Insert-Methode Name der Wg
     public long insertWgName (String name){
         ContentValues nameValues = new ContentValues();
-
-        return db.update(GROUPTABLE,nameValues,null,null);
+        nameValues.put(KEY_NAMEWG,name);
+        return db.update(DIESERBENUTZER,nameValues,null,null);
     }
     //Insert-Methode Name des User
     public long insertWgUserName (String name){
         ContentValues nameValues = new ContentValues();
         nameValues.put(KEY_NAMEUSER,name);
-        return db.update(GROUPTABLE,nameValues,null,null);
+        return db.update(DIESERBENUTZER,nameValues,null,null);
     }
 
     //Remove-Methode für Calendar
@@ -140,7 +131,7 @@ public class CalendarDB {
 
         String toDelete = KEY_TASK + "=?";
         String[] deleteArguments = new String[]{item.getName()};
-        db.delete(DATABASE_TABLE, toDelete, deleteArguments);
+        db.delete(TERMINE, toDelete, deleteArguments);
 
     }
     //Remove-Methode für Calendar
@@ -155,7 +146,7 @@ public class CalendarDB {
 
         String toDelete = KEY_NAME + "=?";
         String[] deleteArguments = new String[]{item.getName()};
-        db.delete(DATABASE_TABLE1, toDelete, deleteArguments);
+        db.delete(EINKAUF, toDelete, deleteArguments);
 
     }
 
@@ -163,18 +154,18 @@ public class CalendarDB {
 
         String toDelete = KEY_NAME + "=?";
         String[] deleteArguments = new String[]{name};
-        db.delete(DATABASE_TABLE2, toDelete, deleteArguments);
+        db.delete(BENUTZER, toDelete, deleteArguments);
 
     }
     //get All CalendarItems
     public ArrayList<CalendarItem> getAllToDoItems() {
         ArrayList<CalendarItem> items = new ArrayList<CalendarItem>();
-        Cursor cursor = db.query(DATABASE_TABLE, new String[] { KEY_ID,
+        Cursor cursor = db.query(TERMINE, new String[] { KEY_ID,
                 KEY_TASK, KEY_DATE}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
-                String task = cursor.getString(COLUMN_TASK_INDEX);
-                String date = cursor.getString(COLUMN_DATE_INDEX);
+                String task = cursor.getString(1);
+                String date = cursor.getString(2);
 
                 Date formattedDate = null;
                 try {
@@ -198,11 +189,11 @@ public class CalendarDB {
     //get All EinkaufItems
     public ArrayList<EinkaufsItem> getAllEinkaufItems() {
         ArrayList<EinkaufsItem> items = new ArrayList<EinkaufsItem>();
-        Cursor cursor = db.query(DATABASE_TABLE1, new String[] {KEY_ID,
+        Cursor cursor = db.query(EINKAUF, new String[] {
                 KEY_NAME}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
-                String name = cursor.getString(COLUMN_NAME_INDEX);
+                String name = cursor.getString(0);
                 items.add(new EinkaufsItem(name));
 
             } while (cursor.moveToNext());
@@ -213,7 +204,7 @@ public class CalendarDB {
     //get All Mitbewohner
     public ArrayList<String> getAllMitbewohner() {
         ArrayList<String> items = new ArrayList<String>();
-        Cursor cursor = db.query(DATABASE_TABLE2, new String[] {
+        Cursor cursor = db.query(BENUTZER, new String[] {
                 KEY_NAME}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
@@ -247,7 +238,7 @@ public class CalendarDB {
     //get WGName
     public String getWGName() {
         String name ="";
-        Cursor cursor = db.query(GROUPTABLE, new String[] {
+        Cursor cursor = db.query(DIESERBENUTZER, new String[] {
                 KEY_NAMEWG}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
@@ -260,11 +251,11 @@ public class CalendarDB {
     //get WGName
     public String getUserName() {
         String name ="";
-        Cursor cursor = db.query(GROUPTABLE, new String[] {KEY_ID,
+        Cursor cursor = db.query(DIESERBENUTZER, new String[] {
                 KEY_NAMEUSER}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
-                name = cursor.getString(1);
+                name = cursor.getString(0);
 
             } while (cursor.moveToNext());
         }
@@ -274,7 +265,7 @@ public class CalendarDB {
     //get Guthaben
     public double getGuthaben() {
         double guthaben = 0;
-        Cursor cursor = db.query(DATABASE_TABLE2, new String[] {
+        Cursor cursor = db.query(BENUTZER, new String[] {
                 KEY_GUTHABEN}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
@@ -287,7 +278,7 @@ public class CalendarDB {
     //get GuthabenGesamt
     public double getGuthabenGes() {
         double guthaben = 0;
-        Cursor cursor = db.query(DATABASE_TABLE2, new String[] {
+        Cursor cursor = db.query(BENUTZER, new String[] {
                 KEY_GESAMT}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
@@ -300,26 +291,26 @@ public class CalendarDB {
 
     private class ToDoDBOpenHelper extends SQLiteOpenHelper {
         private static final String CREATETASK = "create table "
-                + DATABASE_TABLE + " (" + KEY_ID
+                + TERMINE + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_TASK
-                + " text not null, " + KEY_DATE + " text " + KEY_GROUP
+                + " text not null, " + KEY_DATE + " text " + KEY_NAMEWG
                 + " text );";
 
 
         private static final String CREATEEKITEM = "create table "
-                + DATABASE_TABLE1 + " (" + KEY_ID
+                + EINKAUF + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_NAME
                 + " text not null, " + KEY_NAMEWG
                 + " text );";
 
         private static final String CREATEUSER = "create table "
-                + DATABASE_TABLE2 + " (" + KEY_NAME
+                + BENUTZER + " (" + KEY_NAME
                 + " text primary key , " + KEY_GESAMT
-                + " double, " + KEY_GUTHABEN + " double, " + KEY_GROUP
+                + " double, " + KEY_GUTHABEN + " double, " + KEY_NAMEWG
                 + " text );";
 
         private static final String CREATEGRUPPE = "create table "
-                + GROUPTABLE + " (" + KEY_ID
+                + DIESERBENUTZER + " (" + KEY_ID
                 + " integer primary key autoincrement, "+ KEY_NAMEWG
                 + " text , " + KEY_NAMEUSER
                 + " text );";
@@ -344,9 +335,8 @@ public class CalendarDB {
             db.execSQL(CREATETASK);
             db.execSQL(CREATEPUTZPLAN);
             db.execSQL(CREATEEKITEM);
-            db.execSQL("INSERT INTO "+GROUPTABLE+"("+KEY_NAMEWG+") VALUES ('Name der WG');");
-            db.execSQL("INSERT INTO "+GROUPTABLE+"("+KEY_NAMEUSER+") VALUES ('Dein Name');");
-            db.execSQL("INSERT INTO wgname('namewg') VALUES ('Name der WG');");
+            db.execSQL("INSERT INTO "+DIESERBENUTZER+"("+KEY_NAMEWG+","+KEY_NAMEUSER+") VALUES ('Name der WG', 'Dein Name');");
+
         }
 
         @Override
