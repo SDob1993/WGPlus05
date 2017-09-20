@@ -46,6 +46,7 @@ public class Putzplan extends ActionBarActivity {
     private Spinner spinnerFrequenz;
 
     private String dateString;
+    public String name;
 
     private CalendarDB PDB;
 
@@ -95,6 +96,7 @@ public class Putzplan extends ActionBarActivity {
     private void initDB() {
         PDB = new CalendarDB(this);
         PDB.open();
+        name = PDB.getUserName();
     }
     private void refreshArrayList() {
         ArrayList tempList = PDB.getAllPutzplanItems();
@@ -176,7 +178,7 @@ public class Putzplan extends ActionBarActivity {
                 }
                 if (!(titel.getText() == null || editDay.getText() == null)) {
                     PutzplanItem putzplanItem = new PutzplanItem(titel.getText().toString(), spinnerFrequenz.getSelectedItem().toString(),
-                            dateString, editDay.getText().toString(), PDB.getUserName(), numberPicker.getValue());
+                            dateString, editDay.getText().toString(), name, numberPicker.getValue());
                     PDB.insertPItem(putzplanItem);
                     ArrayListUser.add(putzplanItem);
                     customAdapter.notifyDataSetChanged();
