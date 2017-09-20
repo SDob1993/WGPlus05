@@ -1,9 +1,14 @@
 package ur.mi.android.wgplus05;
 
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.graphics.Typeface;
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+import java.util.Date;
 
 
 public class Einkaufsliste2 extends AppCompatActivity {
@@ -33,6 +38,9 @@ public class Einkaufsliste2 extends AppCompatActivity {
     private CalendarDB EKDB;
     private FrameLayout mainLayout;
     private TextView wasbrauchenwirnoch;
+    private Finanzen finanzen;
+    private Date date;
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
         initListView();
         refreshArrayList();
         mainLayout = (FrameLayout) findViewById(R.id.activity_einkaufsliste_id);
+        date = new Date();
 
     }
 
@@ -54,6 +63,15 @@ public class Einkaufsliste2 extends AppCompatActivity {
         wasbrauchenwirnoch = (TextView)findViewById(R.id.wasbrauchenwirnoch);
         wasbrauchenwirnoch.setTypeface(myTypeface);
 
+    }
+
+    private void setupNotfication(EinkaufsItem einkaufsItem){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder (this);
+        mBuilder.setSmallIcon(R.drawable.ic_icon_hdx);
+        mBuilder.setContentTitle("Einkauf fällig!");
+        mBuilder.setContentText(einkaufsItem.getName());
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1,mBuilder.build());
     }
 
     private void setupButton(){
@@ -106,7 +124,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
     }
 
 
-    public void showPopupRemove() {
+    public void showPopupRemove(final int position) {
 
         // get a reference to the already created main layout
 
@@ -144,6 +162,8 @@ public class Einkaufsliste2 extends AppCompatActivity {
                     String username = EKDB.getUserName();
                     EKDB.insertFinanzenGes(preisneuges,wgname);
                     EKDB.insertFinanzen(preisneu,username);
+                 //   finanzen = new Finanzen();
+                 //   finanzen.addEinkaufsToHistory(items.get(position).getName(),date.toString(), Double.toString(preisneu));
                     popupWindow.dismiss();
                 }
                 else Toast.makeText(getApplicationContext(),"Dann gibts halt wieder Nudeln",Toast.LENGTH_LONG).show();
@@ -172,7 +192,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
                 removeTaskAtPosition(position);
-                showPopupRemove();
+                showPopupRemove(position);
                 return true;
             }
         });
@@ -192,6 +212,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.einkaufsliste);
         item_adapter = new EinkaufsAdapter(this, items);
         list.setAdapter(item_adapter);
+
     }
 
     private void removeTaskAtPosition(int position) {

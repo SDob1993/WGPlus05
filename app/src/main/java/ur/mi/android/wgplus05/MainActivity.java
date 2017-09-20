@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, false);
 
 
         // show the popup window
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editName.getText().toString().length() != 0 &&editWgname.getText().toString().length() != 0) {
+                if (editName.getText().toString().length() != 0 && editWgname.getText().toString().length() != 0) {
                     name = editName.getText().toString();
                     wgname = editWgname.getText().toString();
                     DB.insertWgUserName(name);

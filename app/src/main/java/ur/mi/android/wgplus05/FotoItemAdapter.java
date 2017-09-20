@@ -5,13 +5,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -86,7 +89,6 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             //    avatar.setText(p.getDate());
             //    Log.d("check", "Date: "+date.getText());
             user.setText(fotoItem.getUser());
-
             foto.setImageBitmap(fotoItem.getImage());
 
             thumbCount.setText(Integer.toString(fotoItem.getThumbcount()));
@@ -152,6 +154,7 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
 
         } return v;
     }
+
 }
 
 

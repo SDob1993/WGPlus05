@@ -28,7 +28,6 @@ public class Settings extends AppCompatActivity {
     private String UserName;
 
 
-
     public Settings() {
     }
 
@@ -47,25 +46,25 @@ public class Settings extends AppCompatActivity {
 
     private void initListeners() {
         textView = (TextView) findViewById(R.id.TextViewWGName);
-        textView2= (TextView) findViewById(R.id.TextViewSettings2);
+        textView2 = (TextView) findViewById(R.id.TextViewSettings2);
         addButton = findViewById(R.id.buttonaddusers);
         textView.setText(SEDB.getWGName());
         textView2.setText(SEDB.getUserName());
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nameSetted)
-                showPopupAdd(v);
-                nameSetted=true;
+                if (!nameSetted)
+                    showPopupAdd(v);
+                nameSetted = true;
             }
 
-    });
+        });
         textView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!usernameSetted)
-                    //showPopupName(v);
-                usernameSetted=true;
+                if (!usernameSetted)
+                    showPopupName(v);
+                    usernameSetted = true;
             }
 
         });
@@ -84,34 +83,39 @@ public class Settings extends AppCompatActivity {
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);}
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-        /*
-        // show the popup window
-        popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
-        final EditText editText1 = (EditText) popupView.findViewById(R.id.edit_settings);
 
-        final Button button = (Button) popupView.findViewById(R.id.settings_popup_button);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(editText1.getText().toString().length() != 0) {
+        popupWindow.showAtLocation(mainLayout,Gravity.CENTER,0,0);
 
-                    SEDB.insertWgName(editText1.getText().toString());
-                    System.out.println(SEDB.getWGName());
-                    Name = SEDB.getWGName();
-                    textView.setText(Name);
-                    popupWindow.dismiss();
-                }
-                else Toast.makeText(getApplicationContext(),"Bitte gültigen Wert eingeben",Toast.LENGTH_LONG).show();
-            }
-        });
+    final EditText editText1 = (EditText) popupView.findViewById(R.id.edit_settings);
 
-    }*/
+    final Button button = (Button) popupView.findViewById(R.id.settings_popup_button);
+
+        button.setOnClickListener(new View.OnClickListener()
+
+    {
+        @Override
+        public void onClick (View v){
+        if (editText1.getText().toString().length() != 0) {
+
+            SEDB.insertWgName(editText1.getText().toString());
+            System.out.println(SEDB.getWGName());
+            Name = SEDB.getWGName();
+            textView.setText(Name);
+            popupWindow.dismiss();
+        } else
+            Toast.makeText(getApplicationContext(), "Bitte gültigen Wert eingeben", Toast.LENGTH_LONG).show();
+    }
+    });
+}
+
+
+
     //Pup-Up to set UserName
-   /* public void showPopupName(View anchorView) {
+    public void showPopupName(View anchorView) {
 
         // get a reference to the already created main layout
 
@@ -148,7 +152,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-    }*/
+    }
 
     private void initDatabase() {
         SEDB = new CalendarDB(this);

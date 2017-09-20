@@ -64,9 +64,8 @@
             android:orientation="vertical">
     <EditText
         android:layout_width="250dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
         android:hint="Dein Name"
         android:textSize="26sp"
         android:layout_gravity="center"
@@ -76,12 +75,12 @@
         />
             <EditText
                 android:layout_width="250dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
 
                 android:hint="Deine WG"
                 android:textSize="26sp"
-                android:layout_gravity="center"
+                android:layout_gravity="center|bottom"
                 android:id="@+id/edit_wgname"
                 android:maxLines="1"
 
@@ -92,9 +91,10 @@
             android:id="@+id/edit_ok_button_name"
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
             android:background="?android:selectableItemBackground"
-            android:text="OK" />
+            android:text="OK"
+            android:layout_gravity="center"
+            />
     </LinearLayout>
 
 
