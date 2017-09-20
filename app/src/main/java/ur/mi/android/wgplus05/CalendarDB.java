@@ -33,7 +33,7 @@ public class CalendarDB {
     private static final String GROUPTABLE = "wgname";
     //DB-Table für Putzplan
     private static final String PUTZPLAN = "putzplan";
-    public static final String KEY_GROUP = "gruppe";
+    public static final String KEY_GROUP = "namewg";
     //Keys für Calendar
     public static final String KEY_ID = "_id";
     public static final String KEY_TASK = "task";
@@ -118,15 +118,17 @@ public class CalendarDB {
 
     public void insertNewUser(String name, String wgname){
         db.execSQL("INSERT INTO "+DATABASE_TABLE2+" VALUES ('"+name+"', '0', '0','"+wgname+"');");
+
     }
+
 
     //Insert-Methode Name der Wg
     public long insertWgName (String name){
         ContentValues nameValues = new ContentValues();
-        nameValues.put(KEY_NAMEWG,name);
+
         return db.update(GROUPTABLE,nameValues,null,null);
     }
-    //Insert-Methode Name des Uer
+    //Insert-Methode Name des User
     public long insertWgUserName (String name){
         ContentValues nameValues = new ContentValues();
         nameValues.put(KEY_NAMEUSER,name);
@@ -154,6 +156,14 @@ public class CalendarDB {
         String toDelete = KEY_NAME + "=?";
         String[] deleteArguments = new String[]{item.getName()};
         db.delete(DATABASE_TABLE1, toDelete, deleteArguments);
+
+    }
+
+    public void removeMitbewohner(String name) {
+
+        String toDelete = KEY_NAME + "=?";
+        String[] deleteArguments = new String[]{name};
+        db.delete(DATABASE_TABLE2, toDelete, deleteArguments);
 
     }
     //get All CalendarItems
@@ -194,6 +204,21 @@ public class CalendarDB {
             do {
                 String name = cursor.getString(COLUMN_NAME_INDEX);
                 items.add(new EinkaufsItem(name));
+
+            } while (cursor.moveToNext());
+        }
+        return items;
+    }
+
+    //get All Mitbewohner
+    public ArrayList<String> getAllMitbewohner() {
+        ArrayList<String> items = new ArrayList<String>();
+        Cursor cursor = db.query(DATABASE_TABLE2, new String[] {
+                KEY_NAME}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(0);
+                items.add(name);
 
             } while (cursor.moveToNext());
         }
@@ -284,7 +309,7 @@ public class CalendarDB {
         private static final String CREATEEKITEM = "create table "
                 + DATABASE_TABLE1 + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_NAME
-                + " text not null, " + KEY_GROUP
+                + " text not null, " + KEY_NAMEWG
                 + " text );";
 
         private static final String CREATEUSER = "create table "

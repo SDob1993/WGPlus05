@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -13,6 +15,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class Settings extends AppCompatActivity {
 
@@ -26,6 +30,8 @@ public class Settings extends AppCompatActivity {
     private CalendarDB SEDB;
     private String Name;
     private String UserName;
+    private ArrayAdapter<String> itemadapter;
+    private ArrayList<String> arraylist;
 
 
     public Settings() {
@@ -42,6 +48,32 @@ public class Settings extends AppCompatActivity {
         mainLayout = (FrameLayout) findViewById(R.id.activity_settings);
 
         initListeners();
+        setupListView();
+
+    }
+
+    private void setupListView() {
+        arraylist = SEDB.getAllMitbewohner();
+        ListView itemListView = (ListView) findViewById(R.id.list_mitbewohner);
+        itemadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
+        //set adapter
+        itemListView.setAdapter(itemadapter);
+        //setOnItemLongClickListener
+        itemListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //call to remove
+                itemLongClicked(position);
+                return false;
+            }
+        });
+    }
+
+    private void itemLongClicked(int position) {
+        //remove clicked item
+        SEDB.removeMitbewohner(itemadapter.getItem(position));
+        arraylist.remove(position);
+        refreshArrayList();
     }
 
     private void initListeners() {
@@ -50,12 +82,10 @@ public class Settings extends AppCompatActivity {
         addButton = findViewById(R.id.buttonaddusers);
         textView.setText(SEDB.getWGName());
         textView2.setText(SEDB.getUserName());
-        textView.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!nameSetted)
                     showPopupAdd(v);
-                nameSetted = true;
             }
 
         });
@@ -77,7 +107,7 @@ public class Settings extends AppCompatActivity {
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.layout_user_popup_settings, null);
+        View popupView = inflater.inflate(R.layout.layout_add_user, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -90,9 +120,9 @@ public class Settings extends AppCompatActivity {
 
         popupWindow.showAtLocation(mainLayout,Gravity.CENTER,0,0);
 
-    final EditText editText1 = (EditText) popupView.findViewById(R.id.edit_settings);
+    final EditText editText1 = (EditText) popupView.findViewById(R.id.add_user);
 
-    final Button button = (Button) popupView.findViewById(R.id.settings_popup_button);
+    final Button button = (Button) popupView.findViewById(R.id.add_popup_button);
 
         button.setOnClickListener(new View.OnClickListener()
 
@@ -100,11 +130,10 @@ public class Settings extends AppCompatActivity {
         @Override
         public void onClick (View v){
         if (editText1.getText().toString().length() != 0) {
-
-            SEDB.insertWgName(editText1.getText().toString());
-            System.out.println(SEDB.getWGName());
             Name = SEDB.getWGName();
-            textView.setText(Name);
+            SEDB.insertNewUser(editText1.getText().toString(),Name);
+            System.out.println(SEDB.getWGName());
+            refreshArrayList();
             popupWindow.dismiss();
         } else
             Toast.makeText(getApplicationContext(), "Bitte gültigen Wert eingeben", Toast.LENGTH_LONG).show();
@@ -152,6 +181,12 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+    }
+    private void refreshArrayList() {
+        ArrayList tempList = SEDB.getAllMitbewohner();
+        arraylist.clear();
+        arraylist.addAll(tempList);
+        itemadapter.notifyDataSetChanged();
     }
 
     private void initDatabase() {
