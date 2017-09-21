@@ -18,13 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import ur.mi.android.wgplus05.Einkaufsliste.Einkaufsliste2;
-import ur.mi.android.wgplus05.Einstellungen.Settings;
-import ur.mi.android.wgplus05.Finanzen.Finanzen;
-import ur.mi.android.wgplus05.FotoWand.PictureActivity;
-import ur.mi.android.wgplus05.Kalender.Kalender;
-import ur.mi.android.wgplus05.Putzplan.Putzplan;
-
 
 public class MainActivity extends AppCompatActivity {
 

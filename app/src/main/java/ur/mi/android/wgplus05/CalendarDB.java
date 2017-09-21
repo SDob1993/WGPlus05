@@ -18,10 +18,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import ur.mi.android.wgplus05.Einkaufsliste.EinkaufsItem;
-import ur.mi.android.wgplus05.Kalender.CalendarItem;
-import ur.mi.android.wgplus05.Putzplan.PutzplanItem;
-
 public class CalendarDB {
     //DB allgemein
     private static final String DATABASE_NAME = "calendar.db";
@@ -218,8 +214,8 @@ public class CalendarDB {
     }
 
     //get All Mitbewohner
-    public ArrayList<String> getAllMitbewohner() {
-        ArrayList<String> items = new ArrayList<String>();
+    public ArrayList<SettingsUser> getAllMitbewohner() {
+        ArrayList<SettingsUser> items = new ArrayList<SettingsUser>();
         Cursor cursor = db.query(BENUTZER, new String[] {
                 KEY_NAME, KEY_PUNKTE}, null, null, null, null, null);
         if (cursor.moveToFirst()) {

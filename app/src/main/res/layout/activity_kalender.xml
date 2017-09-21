@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ur.mi.android.wgplus05.Kalender.Kalender"
+    tools:context="ur.mi.android.wgplus05.Kalender"
     android:id="@+id/activity_kalender_id">
     
 

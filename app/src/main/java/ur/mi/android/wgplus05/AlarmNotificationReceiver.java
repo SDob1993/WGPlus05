@@ -1,4 +1,4 @@
-package ur.mi.android.wgplus05.Kalender;
+package ur.mi.android.wgplus05;
 
 import android.app.Notification;
 import android.app.NotificationManager;

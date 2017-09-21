@@ -28,18 +28,18 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".Finanzen.Finanzen" />
+        <activity android:name=".Finanzen" />
         <activity android:name=".Einkaufsliste_alt" />
-        <activity android:name=".Einkaufsliste.Einkaufsliste2" />
+        <activity android:name=".Einkaufsliste2" />
         <activity android:name=".toDoList" />
-        <activity android:name=".Einstellungen.Settings" />
-        <activity android:name=".FotoWand.PictureActivity" />
+        <activity android:name=".Settings" />
+        <activity android:name=".PictureActivity" />
         <activity
-            android:name=".Putzplan.Putzplan"
+            android:name=".Putzplan"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".Kalender.Kalender" />
+        <activity android:name=".Kalender" />
         <provider
-            android:name=".FotoWand.GenericFileProvider"
+            android:name=".GenericFileProvider"
             android:authorities="${applicationId}.genericfileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -48,7 +48,7 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
-        <receiver android:name=".Kalender.AlarmNotificationReceiver"/>
+        <receiver android:name=".AlarmNotificationReceiver"/>
     </application>
 
 </manifest>

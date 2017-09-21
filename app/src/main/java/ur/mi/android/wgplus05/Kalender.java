@@ -1,14 +1,11 @@
-package ur.mi.android.wgplus05.Kalender;
+package ur.mi.android.wgplus05;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -33,10 +29,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
-
-import ur.mi.android.wgplus05.CalendarDB;
-import ur.mi.android.wgplus05.Einkaufsliste.EinkaufsItem;
-import ur.mi.android.wgplus05.R;
 
 public class Kalender extends AppCompatActivity {
 

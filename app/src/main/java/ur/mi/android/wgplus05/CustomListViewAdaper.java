@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ur.mi.android.wgplus05.Putzplan.PutzplanItem;
-
 
 public class CustomListViewAdaper extends ArrayAdapter<PutzplanItem> {
 

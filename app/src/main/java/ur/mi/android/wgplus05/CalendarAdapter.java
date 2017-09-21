@@ -1,4 +1,4 @@
-package ur.mi.android.wgplus05.Kalender;
+package ur.mi.android.wgplus05;
 
 /**
  * Created by simon on 07.09.2017.
@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import ur.mi.android.wgplus05.R;
 
 
 public class CalendarAdapter extends ArrayAdapter<CalendarItem> {
