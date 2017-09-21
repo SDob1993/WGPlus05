@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Deine Ausgaben:"
+            android:text="Dein Guthaben:"
             android:textSize="26dp"
             android:textStyle="bold" />
 

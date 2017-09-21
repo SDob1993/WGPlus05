@@ -21,8 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
 
@@ -33,13 +35,11 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
     private CommentaryAdapter commentaryAdapter;
 
 
-
     public FotoItemAdapter(Context context, ArrayList<FotoItem> listItems) {
         super(context, R.layout.listelement_foto_item, listItems);
         this.context = context;
         this.posts = listItems;
         SEDB = new CalendarDB(context);
-
 
     }
 
@@ -82,10 +82,8 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             comments = new ArrayList<>();
             commentaryAdapter = new CommentaryAdapter(context, comments);
             commentBox.setAdapter(commentaryAdapter);
-
-            byte[] image = fotoItem.getImage();
-
-            Bitmap bitmap = BitmapFactory.decodeByteArray(image,0,image.length);
+            Log.d("imagedb", Arrays.toString(fotoItem.getImage()));
+            Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
             foto.setImageBitmap(bitmap);
 
             thumbCount.setText(Integer.toString(fotoItem.getThumbcount()));

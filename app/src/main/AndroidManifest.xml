@@ -29,9 +29,7 @@
 
         </activity>
         <activity android:name=".Finanzen" />
-        <activity android:name=".Einkaufsliste_alt" />
         <activity android:name=".Einkaufsliste2" />
-        <activity android:name=".toDoList" />
         <activity android:name=".Settings" />
         <activity android:name=".PictureActivity" />
         <activity

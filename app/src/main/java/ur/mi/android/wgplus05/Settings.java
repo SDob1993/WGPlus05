@@ -24,7 +24,6 @@ import ur.mi.android.wgplus05.R;
 public class Settings extends AppCompatActivity {
 
     private FrameLayout mainLayout;
-    private TextView textView;
     private TextView textView2;
     private ListView listView;
     private View addButton;
@@ -45,9 +44,10 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        setTitle("#Crew");
-
         initDatabase();
+        setTitle("#"+SEDB.getWGName());
+
+
 
         mainLayout = (FrameLayout) findViewById(R.id.activity_settings);
 
@@ -83,10 +83,8 @@ public class Settings extends AppCompatActivity {
     private void initListeners() {
         avatar = (TextView) findViewById(R.id.foto_avatar);
         avatar.setText(SEDB.getUserName());
-        textView = (TextView) findViewById(R.id.TextViewWGName);
         textView2 = (TextView) findViewById(R.id.TextViewSettings2);
         addButton = findViewById(R.id.buttonaddusers);
-        textView.setText(SEDB.getWGName());
         textView2.setText(SEDB.getUserName());
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override

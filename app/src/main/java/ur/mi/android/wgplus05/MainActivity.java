@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                     popupWindow.dismiss();
                     Log.d("name", name);
                 } else
-                    Toast.makeText(getApplicationContext(), "Bitte geb deinen Namen und den Namen deiner WG ein", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.main_popup_toast, Toast.LENGTH_LONG).show();
             }
         });
 

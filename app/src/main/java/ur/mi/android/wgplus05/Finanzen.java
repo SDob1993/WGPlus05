@@ -30,7 +30,7 @@ public class Finanzen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finanzen);
-        setTitle("#MoneyTalk");
+        setTitle(R.string.finanzen_title);
         DB = new CalendarDB(this);
         DB.open();
         arraylist=DB.getAllEkitems();
@@ -43,7 +43,7 @@ public class Finanzen extends AppCompatActivity {
         double balance = DB.getMeinGuthaben(name1)-DB.getGuthabenGes()/DB.getAnzahlMitbewohner();
         guthaben.setText(""+Double.toString(Math.round(balance))+"€"); //Double.toString(Math.round(DB.getGuthaben()))
         drueber = (TextView) findViewById(R.id.drueber);
-        drueber.setText(Double.toString(Math.round(DB.getMeinGuthaben(name1)-DB.getGuthabenGes()/DB.getAnzahlMitbewohner())));
+        drueber.setText(Double.toString(Math.round(DB.getMeinGuthaben(name1))));
         eingekaufteItems = (ListView) findViewById(R.id.bought_items);
         aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
         eingekaufteItems.setAdapter(aa);
