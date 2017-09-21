@@ -33,8 +33,8 @@ public class Settings extends AppCompatActivity {
     private CalendarDB SEDB;
     private String Name;
     private String UserName;
-    private ArrayAdapter<SettingsUser> itemadapter;
-    private ArrayList<SettingsUser> arraylist;
+    private ArrayAdapter<String> itemadapter;
+    private ArrayList<String> arraylist;
     private TextView avatar;
 
 
@@ -59,7 +59,7 @@ public class Settings extends AppCompatActivity {
     private void setupListView() {
         arraylist = SEDB.getAllMitbewohner();
         ListView itemListView = (ListView) findViewById(R.id.list_mitbewohner);
-        itemadapter = new ArrayAdapter<SettingsUser>(this, android.R.layout.simple_list_item_1, arraylist);
+        itemadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
         //set adapter
         itemListView.setAdapter(itemadapter);
         //setOnItemLongClickListener

@@ -11,10 +11,10 @@ public class FotoItem extends PictureActivity{
     private int thumbcount;
 
 
-    public FotoItem(String commentary, Bitmap image, String name){
+    public FotoItem(String commentary, Bitmap image, String name, int thumbcount){
         this.commentary = commentary;
         this.image = image;
-        thumbcount = 0;
+        this.thumbcount = thumbcount;
         this.name = name;
     }
 

@@ -61,6 +61,7 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
 
             Log.d("check", "getView: ist nicht null");
             TextView user = (TextView) v.findViewById(R.id.name_foto_user);
+            user.setText(fotoItem.getUser());
             ImageView foto = (ImageView) v.findViewById(R.id.foto_view);
             TextView user_commentary = (TextView) v.findViewById(R.id.foto_user_commentary);
             final ImageButton thumbUp = (ImageButton) v.findViewById(R.id.foto_thumb_up);

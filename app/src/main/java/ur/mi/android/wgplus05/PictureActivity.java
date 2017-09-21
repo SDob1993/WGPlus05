@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
@@ -40,6 +41,8 @@ public class PictureActivity extends AppCompatActivity {
     private ListView listView;
     private CalendarDB FDB;
     private String name;
+    public Bitmap image;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +52,19 @@ public class PictureActivity extends AppCompatActivity {
         initUI();
         initDB();
         mainLayout = (FrameLayout) findViewById(R.id.fotowand);
+        refreshArrayList();
 
     }
 
     private void initCamera() {
         camera = new Camera(this);
+    }
+
+    private void refreshArrayList() {
+        //ArrayList tempList = FDB.();
+        posts.clear();
+       // posts.addAll(tempList);
+        listAdapter.notifyDataSetChanged();
     }
 
     private void initDB() {
@@ -144,7 +155,7 @@ public class PictureActivity extends AppCompatActivity {
 
     private void processPicture(String path) {
         Point imageSize = new Point(getDisplaySize().x, getDisplaySize().y);
-        Bitmap image = camera.getScaledBitmap(path, imageSize);
+        image = camera.getScaledBitmap(path, imageSize);
 
         gridAdapter.addImage(image);
         gridAdapter.notifyDataSetChanged();
@@ -197,13 +208,19 @@ public class PictureActivity extends AppCompatActivity {
 
         final Button buttonAdd = (Button) popupView.findViewById(R.id.foto_button_popup);
 
-
+        final String nameuser = FDB.getUserName();
 
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FotoItem fotoItem = new FotoItem(editText.getText().toString(), gridAdapter.getItem(gridAdapter.getCount()-1),name);
+                FotoItem fotoItem = new FotoItem(editText.getText().toString(), gridAdapter.getItem(gridAdapter.getCount()-1),nameuser,0);
+                String nameuser = FDB.getUserName();
+                String namewg = FDB.getWGName();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg);
                 posts.add(0, fotoItem);
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();

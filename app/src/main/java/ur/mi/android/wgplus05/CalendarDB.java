@@ -29,6 +29,7 @@ public class CalendarDB {
     private static final String DIESERBENUTZER = "dieserbenutzer";
     private static final String PUTZPLAN = "putzplan";
     private static final String EKHIST = "ekhist";
+    private static final String FOTOWAND = "fotowand";
 
     //Keys für Calendar
     public static final String KEY_ID = "_id";
@@ -52,6 +53,10 @@ public class CalendarDB {
     public static final String KEY_NAMEP = "name";
     public static final String KEY_AUFWAND = "aufwand";
     public static final String KEY_BILD = "bild";
+    public static final String KEY_KOMMENTAR = "kommentar";
+    public static final String KEY_THUMB = "thumb";
+
+
     public static final String KEY_PUNKTE = "punkte";
 
 
@@ -118,6 +123,11 @@ public class CalendarDB {
 
     public void insertNewUser(String name, String wgname){
         db.execSQL("INSERT INTO "+BENUTZER+" VALUES ('"+name+"', '0', '0','"+wgname+"','0');");
+
+    }
+    public void insertFotoItem(String kommentar, byte[] image,String name ,String wgname){
+        db.execSQL("INSERT INTO "+FOTOWAND+ "("+KEY_KOMMENTAR+","+KEY_BILD+","+KEY_THUMB+","+KEY_NAME+","+KEY_NAMEWG+")" +
+                " VALUES ('"+kommentar+"', '"+image+"', '0','"+name+"','"+wgname+"');");
 
     }
 
@@ -213,9 +223,25 @@ public class CalendarDB {
         return items;
     }
 
+    //get All FotoItems
+    public ArrayList<FotoItem> getAllFotos() {
+        ArrayList<FotoItem> items = new ArrayList<FotoItem>();
+        Cursor cursor = db.query(FOTOWAND, new String[] {
+                KEY_KOMMENTAR, KEY_BILD, KEY_NAME,KEY_THUMB}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(0);
+
+               // items.add(new EinkaufsItem(name));
+
+            } while (cursor.moveToNext());
+        }
+        return items;
+    }
+
     //get All Mitbewohner
-    public ArrayList<SettingsUser> getAllMitbewohner() {
-        ArrayList<SettingsUser> items = new ArrayList<SettingsUser>();
+    public ArrayList<String> getAllMitbewohner() {
+        ArrayList<String> items = new ArrayList<String>();
         Cursor cursor = db.query(BENUTZER, new String[] {
                 KEY_NAME, KEY_PUNKTE}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
@@ -264,17 +290,17 @@ public class CalendarDB {
     public ArrayList<PutzplanItem> getAllPutzplanItems() {
         ArrayList<PutzplanItem> items = new ArrayList<PutzplanItem>();
         Cursor cursor = db.query(PUTZPLAN, new String[] {KEY_ID,
-                KEY_NAMEP, KEY_TITEL, KEY_DATUM, KEY_AUFWAND, KEY_FREQUENZ,KEY_TAG}, null, null, null, null, null);
+                KEY_TITEL, KEY_FREQUENZ, KEY_DATUM, KEY_TAG, KEY_NAMEP,KEY_AUFWAND}, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
-                String name = cursor.getString(1);
-                String titel = cursor.getString(2);
+                String titel = cursor.getString(1);
+                String frequenz = cursor.getString(2);
                 String datum = cursor.getString(3);
-                int aufwand = cursor.getInt(4);
-                String frequenz = cursor.getString(5);
-                String tag = cursor.getString(6);
-                items.add(new PutzplanItem(name,titel,datum,tag,frequenz,aufwand));
+                String tag = cursor.getString(4);
+                String name = cursor.getString(5);
+                int aufwand = cursor.getInt(6);
+                items.add(new PutzplanItem(titel,frequenz,datum,tag,name,aufwand));
 
             } while (cursor.moveToNext());
         }
@@ -371,9 +397,14 @@ public class CalendarDB {
 
         private static final String CREATEPUTZPLAN = "create table "
                 + PUTZPLAN + " (" + KEY_ID
-                + " integer primary key autoincrement, " + KEY_NAMEP
-                + " text not null, "+ KEY_TITEL +" text, "+KEY_DATUM+ " text, "+KEY_AUFWAND+" integer, "+KEY_FREQUENZ+ " text, " +KEY_TAG+ " text, "+ KEY_NAMEWG
+                + " integer primary key autoincrement, " + KEY_TITEL
+                + " text not null, "+ KEY_FREQUENZ +" text, "+KEY_DATUM+ " text, "+KEY_TAG+" text, "+KEY_NAME+ " text, " +KEY_AUFWAND+ " integer, "+ KEY_NAMEWG
                 + " text );";
+
+        private static final String CREATEIMAGEW = "create table "
+                + FOTOWAND + " (" + KEY_ID
+                + " integer primary key autoincrement, " + KEY_KOMMENTAR
+                + " text , "+ KEY_BILD +" blob, "+KEY_THUMB+ " integer, "+KEY_NAME+" text, "+KEY_NAMEWG+ " text );";
 
         public ToDoDBOpenHelper(Context c, String dbname,
                                 SQLiteDatabase.CursorFactory factory, int version) {
@@ -389,6 +420,7 @@ public class CalendarDB {
             db.execSQL(CREATEPUTZPLAN);
             db.execSQL(CREATEEKITEM);
             db.execSQL(CREATEEKHIST);
+            db.execSQL(CREATEIMAGEW);
             db.execSQL("INSERT INTO "+DIESERBENUTZER+"("+KEY_NAMEWG+","+KEY_NAMEUSER+") VALUES ('Name der WG', 'Dein Name');");
 
         }
