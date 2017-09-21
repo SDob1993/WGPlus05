@@ -22,7 +22,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_icon_hdx)
-                .setContentTitle("Termin steht an!")
+                .setContentTitle(Integer.toString(R.string.notification_title))
                 .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
                 .setContentInfo("Info");
 

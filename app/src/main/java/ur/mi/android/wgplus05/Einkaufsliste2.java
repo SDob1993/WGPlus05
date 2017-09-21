@@ -44,7 +44,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_einkaufsliste);
-        setTitle("#NudelnUndWasNoch?");
+        setTitle(R.string.einkaufsliste_title);
         setupButton();
         setUpTextView();
         initTaskList();
@@ -64,14 +64,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
 
     }
 
-    private void setupNotfication(EinkaufsItem einkaufsItem){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder (this);
-        mBuilder.setSmallIcon(R.drawable.ic_icon_hdx);
-        mBuilder.setContentTitle("Einkauf fällig!");
-        mBuilder.setContentText(einkaufsItem.getName());
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1,mBuilder.build());
-    }
+
 
     private void setupButton(){
         addButton = (ImageButton) findViewById(R.id.einkaufsliste_plus);
@@ -116,7 +109,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
                     refreshArrayList();
                     popupWindow.dismiss();
                 }
-                else Toast.makeText(getApplicationContext(),"Dann gibts halt wieder Nudeln",Toast.LENGTH_LONG).show();
+                else Toast.makeText(getApplicationContext(),R.string.ungültige_eingabe_toast,Toast.LENGTH_LONG).show();
             }
         });
 
@@ -169,7 +162,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
                     removeTaskAtPosition(position);
                     popupWindow.dismiss();
                 }
-                else Toast.makeText(getApplicationContext(),"Dann gibts halt wieder Nudeln",Toast.LENGTH_LONG).show();
+                else Toast.makeText(getApplicationContext(),R.string.ungültige_eingabe_toast,Toast.LENGTH_LONG).show();
                 Log.d("preis",preis);
 
             }

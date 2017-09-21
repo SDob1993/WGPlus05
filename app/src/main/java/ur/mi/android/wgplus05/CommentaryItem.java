@@ -19,7 +19,7 @@ public class CommentaryItem {
         CDB.open();
         this.commentary = commentary;
         CDB = new CalendarDB(context);
-        this.user = CDB.getUserName(); // "Hans";
+        this.user = CDB.getUserName();
     }
 
     public String getCommentary(){

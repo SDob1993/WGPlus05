@@ -21,8 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
 
@@ -80,7 +82,7 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             comments = new ArrayList<>();
             commentaryAdapter = new CommentaryAdapter(context, comments);
             commentBox.setAdapter(commentaryAdapter);
-
+            Log.d("imagedb", Arrays.toString(fotoItem.getImage()));
             Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
             foto.setImageBitmap(bitmap);
 
