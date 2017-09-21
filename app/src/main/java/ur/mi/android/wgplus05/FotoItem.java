@@ -10,20 +10,17 @@ public class FotoItem extends PictureActivity{
 
     private String commentary;
     private Bitmap image;
-    private String user;
-    private Image avatar;
+    private String name;
     private int thumbcount;
-    private CalendarDB CDB;
 
-    public FotoItem(String commentary, Bitmap image){
+
+    public FotoItem(String commentary, Bitmap image, String name){
         this.commentary = commentary;
         this.image = image;
-        //CDB = new CalendarDB(this);
-        //CDB.open();
-        user = "Lukas";
-        //avatar = SEDB.getAvatar();
         thumbcount = 0;
+        this.name = name;
     }
+
 
     public String getCommentary(){
         return commentary;
@@ -43,7 +40,7 @@ public class FotoItem extends PictureActivity{
     }
 
     public String getUser(){
-     return "Lukas";//CDB.getUserName();
+     return name;
 
     }
 
