@@ -192,6 +192,9 @@ public class Putzplan extends ActionBarActivity {
 
     private void removeTaskAtPosition(int position) {
         if (ArrayListUser.get(position) != null) {
+            int aufwand = ArrayListUser.get(position).getAufwand();
+            String name1 = PDB.getUserName();
+            PDB.insertPunkte(aufwand, name1);
             PDB.removePutzplanItem(ArrayListUser.get(position));
             refreshArrayList();
         }

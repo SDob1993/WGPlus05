@@ -53,6 +53,7 @@ public class CalendarDB {
     public static final String KEY_NAMEP = "name";
     public static final String KEY_AUFWAND = "aufwand";
     public static final String KEY_BILD = "bild";
+    public static final String KEY_PUNKTE = "punkte";
 
 
     private ToDoDBOpenHelper dbHelper;
@@ -111,8 +112,13 @@ public class CalendarDB {
 
     }
 
+    public void insertPunkte(int punkte , String name) {
+        db.execSQL("UPDATE "+BENUTZER+" SET "+KEY_PUNKTE+" = '"+punkte+"' WHERE "+KEY_NAME+" = '"+name+"';");
+
+    }
+
     public void insertNewUser(String name, String wgname){
-        db.execSQL("INSERT INTO "+BENUTZER+" VALUES ('"+name+"', '0', '0','"+wgname+"');");
+        db.execSQL("INSERT INTO "+BENUTZER+" VALUES ('"+name+"', '0', '0','"+wgname+"','0');");
 
     }
 
@@ -212,11 +218,13 @@ public class CalendarDB {
     public ArrayList<String> getAllMitbewohner() {
         ArrayList<String> items = new ArrayList<String>();
         Cursor cursor = db.query(BENUTZER, new String[] {
-                KEY_NAME}, null, null, null, null, null);
+                KEY_NAME, KEY_PUNKTE}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(0);
-                items.add(name);
+                int aufwand = cursor.getInt(1);
+                String result = ""+name+"     hat   "+aufwand+" Punkte";
+                items.add(result);
 
             } while (cursor.moveToNext());
         }
@@ -314,6 +322,7 @@ public class CalendarDB {
         return guthaben;
     }
 
+
     //get GuthabenGesamt
     public double getGuthabenGes() {
         double guthaben = 0;
@@ -346,7 +355,7 @@ public class CalendarDB {
                 + BENUTZER + " (" + KEY_NAME
                 + " text primary key , " + KEY_GESAMT
                 + " double, " + KEY_GUTHABEN + " double, " + KEY_NAMEWG
-                + " text );";
+                + " text ,"+KEY_PUNKTE+" integer );";
 
         private static final String CREATEEKHIST = "create table "
                 + EKHIST + " (" + KEY_ID

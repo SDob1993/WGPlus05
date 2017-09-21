@@ -133,7 +133,7 @@ public class Einkaufsliste2 extends AppCompatActivity {
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.layout_user_popup_einkaufsliste_remove, null);
+        final View popupView = inflater.inflate(R.layout.layout_user_popup_einkaufsliste_remove, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -151,6 +151,8 @@ public class Einkaufsliste2 extends AppCompatActivity {
         final NumberPicker preis_cent = (NumberPicker) popupView.findViewById(R.id.edit_einkaufsliste_preis_cent);
         preis_cent.setMaxValue(99);
         final Button button = (Button) popupView.findViewById(R.id.einkaufsliste_popup_button_remove);
+        final TextView textView = (TextView) popupView.findViewById(R.id.edit_einkaufsliste_produkt);
+        textView.setText(items.get(position).getName());
 
 
         button.setOnClickListener(new View.OnClickListener() {
