@@ -33,11 +33,13 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
     private CommentaryAdapter commentaryAdapter;
 
 
+
     public FotoItemAdapter(Context context, ArrayList<FotoItem> listItems) {
         super(context, R.layout.listelement_foto_item, listItems);
         this.context = context;
         this.posts = listItems;
         SEDB = new CalendarDB(context);
+
 
     }
 
@@ -81,7 +83,9 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             commentaryAdapter = new CommentaryAdapter(context, comments);
             commentBox.setAdapter(commentaryAdapter);
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
+            byte[] image = fotoItem.getImage();
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(image,0,image.length);
             foto.setImageBitmap(bitmap);
 
             thumbCount.setText(Integer.toString(fotoItem.getThumbcount()));

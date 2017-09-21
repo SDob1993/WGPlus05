@@ -2,6 +2,7 @@ package ur.mi.android.wgplus05;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 
@@ -154,7 +156,7 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     private void processPicture(String path) {
-        Point imageSize = new Point(getDisplaySize().x, getDisplaySize().y);
+        Point imageSize = new Point(getDisplaySize().x/2, getDisplaySize().y/2);
         image = camera.getScaledBitmap(path, imageSize);
 
         gridAdapter.addImage(image);
@@ -214,9 +216,13 @@ public class PictureActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
+                /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.PNG,10, stream);
+                byte[] byteArray = stream.toByteArray();*/
+                int size = image.getRowBytes() * image.getHeight();
+                ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+                image.copyPixelsToBuffer(byteBuffer);
+                byte[] byteArray = byteBuffer.array();
                 String nameuser = FDB.getUserName();
                 String namewg = FDB.getWGName();
                 FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg);
