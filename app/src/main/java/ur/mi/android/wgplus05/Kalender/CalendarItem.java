@@ -1,10 +1,9 @@
-package ur.mi.android.wgplus05;
+package ur.mi.android.wgplus05.Kalender;
 
 /**
  * Created by simon on 07.09.2017.
  */
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;

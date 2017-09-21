@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="ur.mi.android.wgplus05.Einkaufsliste"
+    tools:context="ur.mi.android.wgplus05.Einkaufsliste_alt"
     android:id="@+id/activity_einkaufsliste_id"
 
     >

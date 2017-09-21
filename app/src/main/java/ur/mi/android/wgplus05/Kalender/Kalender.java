@@ -1,30 +1,42 @@
-package ur.mi.android.wgplus05;
+package ur.mi.android.wgplus05.Kalender;
 
-import android.icu.util.Calendar;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.PopupWindow;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+
+import ur.mi.android.wgplus05.CalendarDB;
+import ur.mi.android.wgplus05.Einkaufsliste.EinkaufsItem;
+import ur.mi.android.wgplus05.R;
 
 public class Kalender extends AppCompatActivity {
 
@@ -33,6 +45,8 @@ public class Kalender extends AppCompatActivity {
     private CalendarAdapter tasks_adapter;
     private CalendarDB toDoDB;
     private FrameLayout mainLayout;
+    private AlarmManager manager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +57,7 @@ public class Kalender extends AppCompatActivity {
         initListView();
         refreshArrayList();
         mainLayout = (FrameLayout) findViewById(R.id.activity_kalender_id);
-
+        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         calendar = (CalendarView) findViewById(R.id.calendar);
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
@@ -91,7 +105,9 @@ public class Kalender extends AppCompatActivity {
         yearpicker.setMinValue(2017);
         yearpicker.setValue(year);
 
+
         final Button button = (Button) popupView.findViewById(R.id.task_popup_button);
+        final Switch nswitch = (Switch) popupView.findViewById(R.id.notification_switch);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +121,9 @@ public class Kalender extends AppCompatActivity {
                     tasks.add(newTask);
                     tasks_adapter.notifyDataSetChanged();
                     refreshArrayList();
+                    if (nswitch.isChecked()) { startAlarm(true,false,yearpicker.getValue(),monthpicker.getValue(),daypicker.getValue(), tasks.size(), taskname); }
                     popupWindow.dismiss();
+
                 }
                 else Toast.makeText(getApplicationContext(),"Bitte gültigen Wert eingeben",Toast.LENGTH_LONG).show();
             }
@@ -146,6 +164,9 @@ public class Kalender extends AppCompatActivity {
         if (tasks.get(position) != null) {
             toDoDB.removeToDoItem(tasks.get(position));
             refreshArrayList();
+            Intent myIntent = new Intent(this, AlarmNotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, position, myIntent, 0);
+            manager.cancel(pendingIntent);
         }
     }
     private void sortList() {
@@ -171,4 +192,30 @@ public class Kalender extends AppCompatActivity {
     }
 
 
+    //NotificationStuff
+
+    private void startAlarm(boolean isNotification, boolean isRepeat,int year, int month, int day, int position, String name) {
+        Intent myIntent;
+        PendingIntent pendingIntent;
+
+        Calendar myAlarmDate = Calendar.getInstance();
+        myAlarmDate.setTimeInMillis(System.currentTimeMillis());
+        myAlarmDate.set(year, month, day-1, 10, 0, 0);
+        Log.d("alarm", Integer.toString(year)+Integer.toString(month)+Integer.toString(day-1));
+
+        if (isNotification) {
+            myIntent = new Intent(this, AlarmNotificationReceiver.class);
+            myIntent.putExtra("name", name);
+            myIntent.putExtra("position", position);
+            pendingIntent = PendingIntent.getBroadcast(this, position, myIntent, 0);
+
+
+            manager.set(AlarmManager.RTC_WAKEUP, myAlarmDate.getTimeInMillis(), pendingIntent);
+            Log.d("alarm", Long.toString(myAlarmDate.getTimeInMillis()));
+        }
+    }
+
 }
+
+
+

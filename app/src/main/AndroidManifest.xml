@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_icon_hdx"
@@ -20,24 +21,25 @@
         <activity android:name=".MainActivity">
 
 
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
-        <activity android:name=".Finanzen" />
-        <activity android:name=".Einkaufsliste" />
-        <activity android:name=".Einkaufsliste2" />
+        <activity android:name=".Finanzen.Finanzen" />
+        <activity android:name=".Einkaufsliste_alt" />
+        <activity android:name=".Einkaufsliste.Einkaufsliste2" />
         <activity android:name=".toDoList" />
-        <activity android:name=".Settings" />
-        <activity android:name=".PictureActivity" />
+        <activity android:name=".Einstellungen.Settings" />
+        <activity android:name=".FotoWand.PictureActivity" />
         <activity
-            android:name=".Putzplan"
+            android:name=".Putzplan.Putzplan"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".Kalender" />
+        <activity android:name=".Kalender.Kalender" />
         <provider
-            android:name=".GenericFileProvider"
+            android:name=".FotoWand.GenericFileProvider"
             android:authorities="${applicationId}.genericfileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -46,6 +48,7 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+        <receiver android:name=".Kalender.AlarmNotificationReceiver"/>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@
         android:layout_margin="20dp"
         android:maxLines="1"
         android:inputType="text"
+        android:hint="enter your task"
         />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,6 +41,29 @@
         android:layout_marginRight="10dp"
         android:id="@+id/edit_year"
         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textSize="20dp"
+
+            />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_switch"
+
+        />
+
     </LinearLayout>
 
     <Button

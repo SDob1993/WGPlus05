@@ -1,16 +1,12 @@
 package ur.mi.android.wgplus05;
 
-import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,11 +23,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static ur.mi.android.wgplus05.R.id.action_bar_root;
-import static ur.mi.android.wgplus05.R.id.activity_einkaufsliste_id;
-import static ur.mi.android.wgplus05.R.id.parent;
+import ur.mi.android.wgplus05.Finanzen.Finanzen;
 
-public class Einkaufsliste extends AppCompatActivity {
+public class Einkaufsliste_alt extends AppCompatActivity {
 
     private ImageButton addButton;
     private ListView einkaufsliste;
