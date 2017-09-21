@@ -230,9 +230,11 @@ public class CalendarDB {
                 KEY_KOMMENTAR, KEY_BILD, KEY_NAME,KEY_THUMB}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
-                String name = cursor.getString(0);
-
-               // items.add(new EinkaufsItem(name));
+                String kommentar = cursor.getString(0);
+                byte[] bild = cursor.getBlob(1);
+                String name = cursor.getString(2);
+                int thumb = cursor.getInt(3);
+                items.add(new FotoItem(kommentar,bild,name,thumb));
 
             } while (cursor.moveToNext());
         }
@@ -404,7 +406,7 @@ public class CalendarDB {
         private static final String CREATEIMAGEW = "create table "
                 + FOTOWAND + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_KOMMENTAR
-                + " text , "+ KEY_BILD +" blob, "+KEY_THUMB+ " integer, "+KEY_NAME+" text, "+KEY_NAMEWG+ " text );";
+                + " text , "+ KEY_BILD +" longblob, "+KEY_THUMB+ " integer, "+KEY_NAME+" text, "+KEY_NAMEWG+ " text );";
 
         public ToDoDBOpenHelper(Context c, String dbname,
                                 SQLiteDatabase.CursorFactory factory, int version) {

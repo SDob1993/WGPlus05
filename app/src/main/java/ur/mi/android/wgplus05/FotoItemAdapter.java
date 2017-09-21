@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -80,7 +81,8 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             commentaryAdapter = new CommentaryAdapter(context, comments);
             commentBox.setAdapter(commentaryAdapter);
 
-            foto.setImageBitmap(fotoItem.getImage());
+            Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
+            foto.setImageBitmap(bitmap);
 
             thumbCount.setText(Integer.toString(fotoItem.getThumbcount()));
 
@@ -118,7 +120,8 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bitmap icon = fotoItem.getImage();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
+                    Bitmap icon = bitmap;
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("image/jpeg");
 

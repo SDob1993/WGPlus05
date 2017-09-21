@@ -61,9 +61,9 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     private void refreshArrayList() {
-        //ArrayList tempList = FDB.();
+        ArrayList tempList = FDB.getAllFotos();
         posts.clear();
-       // posts.addAll(tempList);
+        posts.addAll(tempList);
         listAdapter.notifyDataSetChanged();
     }
 
@@ -214,13 +214,13 @@ public class PictureActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FotoItem fotoItem = new FotoItem(editText.getText().toString(), gridAdapter.getItem(gridAdapter.getCount()-1),nameuser,0);
-                String nameuser = FDB.getUserName();
-                String namewg = FDB.getWGName();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
+                String nameuser = FDB.getUserName();
+                String namewg = FDB.getWGName();
                 FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg);
+                FotoItem fotoItem = new FotoItem(editText.getText().toString(), byteArray,nameuser,0);
                 posts.add(0, fotoItem);
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
