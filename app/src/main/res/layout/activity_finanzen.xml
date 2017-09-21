@@ -63,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" + 1€ über"
+            android:id="@+id/drueber"
             android:textColor="@color/Blue"
             android:textSize="18sp"
 

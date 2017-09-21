@@ -32,6 +32,7 @@ public class Settings extends AppCompatActivity {
     private String UserName;
     private ArrayAdapter<String> itemadapter;
     private ArrayList<String> arraylist;
+    private TextView avatar;
 
 
     public Settings() {
@@ -77,6 +78,8 @@ public class Settings extends AppCompatActivity {
     }
 
     private void initListeners() {
+        avatar = (TextView) findViewById(R.id.foto_avatar);
+        avatar.setText(SEDB.getUserName());
         textView = (TextView) findViewById(R.id.TextViewWGName);
         textView2 = (TextView) findViewById(R.id.TextViewSettings2);
         addButton = findViewById(R.id.buttonaddusers);

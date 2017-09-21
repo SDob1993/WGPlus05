@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class EinkaufsHistorieItem{
     private String name;
-    private Date date;
+    //private Date date;
     private String preis;
 
     public EinkaufsHistorieItem(String name, Date date, String preis) {
         this.name = name;
-        this.date = date;
+        //this.date = date;
         this.preis = preis;
     }
 
@@ -22,14 +22,14 @@ public class EinkaufsHistorieItem{
         return name;
     }
 
-    public Date getDate(){
-        return date;
-    }
+    //public Date getDate(){
+      //  return date;
+    //}
 
 
 
     @Override
     public String toString() {
-        return getName()+" am "+date+" für "+preis;
+        return getName()+" "+preis;
     }
 }

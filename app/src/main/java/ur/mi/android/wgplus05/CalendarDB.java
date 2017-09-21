@@ -29,11 +29,15 @@ public class CalendarDB {
     private static final String BENUTZER = "benutzer";
     private static final String DIESERBENUTZER = "dieserbenutzer";
     private static final String PUTZPLAN = "putzplan";
+    private static final String EKHIST = "ekhist";
+
     //Keys für Calendar
     public static final String KEY_ID = "_id";
     public static final String KEY_TASK = "task";
     public static final String KEY_DATE = "date";
     public static final String KEY_NAME = "name";
+    public static final String KEY_KOSTEN = "kosten";
+
     //Keys für Finanzen
     public static final String KEY_GUTHABEN = "guthaben";
     public static final String KEY_GESAMT = "gesamt";
@@ -125,7 +129,9 @@ public class CalendarDB {
         nameValues.put(KEY_NAMEUSER,name);
         return db.update(DIESERBENUTZER,nameValues,null,null);
     }
-
+    public void insertHist (String nameuser,String name, double kosten){
+        db.execSQL("INSERT INTO "+EKHIST+" ("+KEY_NAMEUSER+","+KEY_NAME+","+KEY_KOSTEN+") VALUES('"+nameuser+"','"+name+"','"+kosten+"');");
+    }
     //Remove-Methode für Calendar
     public void removeToDoItem(CalendarItem item) {
 
@@ -157,6 +163,7 @@ public class CalendarDB {
         db.delete(BENUTZER, toDelete, deleteArguments);
 
     }
+
     //get All CalendarItems
     public ArrayList<CalendarItem> getAllToDoItems() {
         ArrayList<CalendarItem> items = new ArrayList<CalendarItem>();
@@ -215,6 +222,37 @@ public class CalendarDB {
         }
         return items;
     }
+
+    //gat Anzhal Mitbewohner
+    public int getAnzahlMitbewohner() {;
+        int anzahl =0;
+        Cursor cursor = db.query(BENUTZER, new String[] {
+                KEY_NAME}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(0);
+                anzahl++;
+
+            } while (cursor.moveToNext());
+        }
+        return anzahl;
+    }
+
+    //get All Mitbewohner
+    public ArrayList<String> getAllEkitems() {
+        ArrayList<String> items = new ArrayList<String>();
+        Cursor cursor = db.query(EKHIST, new String[] {
+                KEY_NAME, KEY_KOSTEN}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(0);
+                String kosten = ""+Math.round(cursor.getDouble(1));
+                items.add(""+name+"    koscht    "+kosten+"    €   !");
+
+            } while (cursor.moveToNext());
+        }
+        return items;
+    }
     //get Putzplan
     public ArrayList<PutzplanItem> getAllPutzplanItems() {
         ArrayList<PutzplanItem> items = new ArrayList<PutzplanItem>();
@@ -262,19 +300,20 @@ public class CalendarDB {
         return name;
     }
 
-    //get Guthaben
-    public double getGuthaben() {
-        double guthaben = 0;
-        Cursor cursor = db.query(BENUTZER, new String[] {
-                KEY_GUTHABEN}, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                guthaben = cursor.getDouble(0);
+    //get Guthabane
 
-            } while (cursor.moveToNext());
+    public double getMeinGuthaben(String name) {
+        double guthaben = 0;
+        Cursor c = db.rawQuery("SELECT "+KEY_GUTHABEN+" FROM "+BENUTZER+" WHERE TRIM("+KEY_NAME+") = '"+name.trim()+"'", null);
+        if (c.moveToFirst()) {
+            do {
+                guthaben = c.getDouble(0);
+
+            } while (c.moveToNext());
         }
         return guthaben;
     }
+
     //get GuthabenGesamt
     public double getGuthabenGes() {
         double guthaben = 0;
@@ -309,6 +348,12 @@ public class CalendarDB {
                 + " double, " + KEY_GUTHABEN + " double, " + KEY_NAMEWG
                 + " text );";
 
+        private static final String CREATEEKHIST = "create table "
+                + EKHIST + " (" + KEY_ID
+                + " integer primary key autoincrement , " + KEY_NAMEUSER
+                + " text, " + KEY_KOSTEN + " double, " + KEY_NAME
+                + " text );";
+
         private static final String CREATEGRUPPE = "create table "
                 + DIESERBENUTZER + " (" + KEY_ID
                 + " integer primary key autoincrement, "+ KEY_NAMEWG
@@ -335,6 +380,7 @@ public class CalendarDB {
             db.execSQL(CREATETASK);
             db.execSQL(CREATEPUTZPLAN);
             db.execSQL(CREATEEKITEM);
+            db.execSQL(CREATEEKHIST);
             db.execSQL("INSERT INTO "+DIESERBENUTZER+"("+KEY_NAMEWG+","+KEY_NAMEUSER+") VALUES ('Name der WG', 'Dein Name');");
 
         }

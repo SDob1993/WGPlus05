@@ -156,17 +156,18 @@ public class Einkaufsliste2 extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue()+"€";
+                final String preis = ""+preis_euro.getValue()+"."+preis_cent.getValue();
                 if(!preis.equals("0.0")) {
-                    double preisneu =Double.parseDouble(preis)+EKDB.getGuthaben();
+                    String name1 = EKDB.getUserName();
+                    double preisneu =Double.parseDouble(preis)+EKDB.getMeinGuthaben(name1);
                     double preisneuges =Double.parseDouble(preis)+EKDB.getGuthabenGes();
                     String wgname = EKDB.getWGName();
                     String username = EKDB.getUserName();
                     EKDB.insertFinanzenGes(preisneuges,wgname);
                     EKDB.insertFinanzen(preisneu,username);
-                 //   finanzen = new Finanzen();
-                 //   finanzen.addEinkaufsToHistory(items.get(position).getName(),date.toString(), Double.toString(preisneu));
-                    removeTaskAtPosition(position,preis);
+                    String item = items.get(position).getName();
+                    EKDB.insertHist(username,item,Double.parseDouble(preis));
+                    removeTaskAtPosition(position);
                     popupWindow.dismiss();
                 }
                 else Toast.makeText(getApplicationContext(),"Dann gibts halt wieder Nudeln",Toast.LENGTH_LONG).show();
@@ -217,11 +218,10 @@ public class Einkaufsliste2 extends AppCompatActivity {
 
     }
 
-    private void removeTaskAtPosition(int position, String preis) {
+    private void removeTaskAtPosition(int position) {
         if (items.get(position) != null) {
             EKDB.removeEinkaufItem(items.get(position));
             refreshArrayList();
-            finanzen.addItemToList(new EinkaufsHistorieItem(items.get(position).getName(), date, preis));
         }
     }
 

@@ -32,7 +32,7 @@ public class EinkaufsHistorieAdapter extends ArrayAdapter<EinkaufsHistorieItem> 
             if (v == null) {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.ekitem_layout, null);
+                v = inflater.inflate(R.layout.listview_einkauf_history, null);
 
             }
 

@@ -51,8 +51,9 @@ public class PutzplanItemAdapter extends ArrayAdapter<PutzplanItem> {
             TextView frequenz = (TextView) v.findViewById(R.id.frequenz_list_view);
             TextView aufwand = (TextView) v.findViewById(R.id.aufwand_list_view);
             TextView avatar = (TextView) v.findViewById(R.id.putzplan_avatar);
-            if (taskList.get(position).getName()!= null) {
-                avatar.setText(taskList.get(position).getName().charAt(0));
+
+            if (putzplanItem.getName()!= null) {
+               avatar.setText(putzplanItem.getName());
             }
             if (titel != null) {
                 titel.setText(putzplanItem.getTitel());
