@@ -84,8 +84,6 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             comments = new ArrayList<>();
             commentaryAdapter = new CommentaryAdapter(context, comments);
             commentBox.setAdapter(commentaryAdapter);
-            Log.d("imagedb", Arrays.toString(fotoItem.getImage()));
-            Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
             Bitmap myBitmap = BitmapFactory.decodeFile(fotoItem.getImagePath());
 
 
@@ -127,8 +125,8 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
-                    Bitmap icon = bitmap;
+                    Bitmap myBitmap = BitmapFactory.decodeFile(fotoItem.getImagePath());
+                    Bitmap icon = myBitmap;
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("image/jpeg");
 

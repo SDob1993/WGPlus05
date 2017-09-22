@@ -6,13 +6,13 @@ import android.graphics.Bitmap;
 public class FotoItem extends PictureActivity{
 
     private String commentary;
-    private byte[] image;
+    //private byte[] image;
     private String name;
     private int thumbcount;
     private String path;
 
 
-    public FotoItem(String commentary, byte[] image, String name, int thumbcount, String path){
+    public FotoItem(String commentary, String name, int thumbcount, String path){
         this.commentary = commentary;
         this.image = image;
         this.thumbcount = thumbcount;
@@ -25,9 +25,9 @@ public class FotoItem extends PictureActivity{
         return commentary;
     }
 
-    public byte[] getImage(){
-        return image;
-    }
+    //public byte[] getImage(){
+        //return image;
+    //}
 
     public String getImagePath(){ return path; }
 

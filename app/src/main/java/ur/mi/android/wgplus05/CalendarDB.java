@@ -229,15 +229,14 @@ public class CalendarDB {
     public ArrayList<FotoItem> getAllFotos() {
         ArrayList<FotoItem> items = new ArrayList<FotoItem>();
         Cursor cursor = db.query(FOTOWAND, new String[] {
-                KEY_KOMMENTAR, KEY_BILD, KEY_NAME,KEY_THUMB,KEY_BILDPATH}, null, null, null, null, null);
+                KEY_KOMMENTAR, KEY_NAME,KEY_THUMB,KEY_BILDPATH}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String kommentar = cursor.getString(0);
-                byte[] bild = cursor.getBlob(1);
-                String name = cursor.getString(2);
-                int thumb = cursor.getInt(3);
-                String path = cursor.getString(4);
-                items.add(new FotoItem(kommentar,bild,name,thumb,path));
+                String name = cursor.getString(1);
+                int thumb = cursor.getInt(2);
+                String path = cursor.getString(3);
+                items.add(new FotoItem(kommentar,name,thumb,path));
 
             } while (cursor.moveToNext());
         }

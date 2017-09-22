@@ -219,15 +219,11 @@ public class PictureActivity extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.PNG,1, stream);
                 byte[] byteArray = stream.toByteArray();
-                /*int size = image.getRowBytes() * image.getHeight();
-                ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-                image.copyPixelsToBuffer(byteBuffer);
-                byte[] byteArray = byteBuffer.array();*/
                 String nameuser = FDB.getUserName();
                 String namewg = FDB.getWGName();
                 //erstellen eines neuen Fotoitems mit bytearray
                 FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg,imgpath);
-                FotoItem fotoItem = new FotoItem(editText.getText().toString(), byteArray,nameuser,0,imgpath);
+                FotoItem fotoItem = new FotoItem(editText.getText().toString(), nameuser,0,imgpath);
                 posts.add(0, fotoItem);
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
