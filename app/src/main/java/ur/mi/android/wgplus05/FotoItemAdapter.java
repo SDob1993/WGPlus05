@@ -86,9 +86,10 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             commentBox.setAdapter(commentaryAdapter);
             Log.d("imagedb", Arrays.toString(fotoItem.getImage()));
             Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
+            Bitmap myBitmap = BitmapFactory.decodeFile(fotoItem.getImagePath());
 
 
-            foto.setImageBitmap(bitmap);
+            foto.setImageBitmap(myBitmap);
 
             thumbCount.setText(Integer.toString(fotoItem.getThumbcount()));
 

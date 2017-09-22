@@ -44,6 +44,7 @@ public class PictureActivity extends AppCompatActivity {
     private CalendarDB FDB;
     private String name;
     public Bitmap image;
+    public String imgpath;
 
 
     @Override
@@ -156,9 +157,8 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     private void processPicture(String path) {
-        Point imageSize = new Point(getDisplaySize().x/2, getDisplaySize().y/2);
+        Point imageSize = new Point(getDisplaySize().x, getDisplaySize().y);
         image = camera.getScaledBitmap(path, imageSize);
-
         gridAdapter.addImage(image);
         gridAdapter.notifyDataSetChanged();
 
@@ -177,6 +177,7 @@ public class PictureActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             processPicture(camera.getCurrentPhotoPath());
+            imgpath = camera.getCurrentPhotoPath();
             Log.d("foto",Integer.toString(requestCode)+" "+ Integer.toString(resultCode));
         }
             showPopupImage();
@@ -225,8 +226,8 @@ public class PictureActivity extends AppCompatActivity {
                 String nameuser = FDB.getUserName();
                 String namewg = FDB.getWGName();
                 //erstellen eines neuen Fotoitems mit bytearray
-                FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg);
-                FotoItem fotoItem = new FotoItem(editText.getText().toString(), byteArray,nameuser,0);
+                FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg,imgpath);
+                FotoItem fotoItem = new FotoItem(editText.getText().toString(), byteArray,nameuser,0,imgpath);
                 posts.add(0, fotoItem);
                 listAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();

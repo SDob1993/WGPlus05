@@ -55,6 +55,7 @@ public class CalendarDB {
     public static final String KEY_BILD = "bild";
     public static final String KEY_KOMMENTAR = "kommentar";
     public static final String KEY_THUMB = "thumb";
+    public static final String KEY_BILDPATH = "pathbild";
 
 
     public static final String KEY_PUNKTE = "punkte";
@@ -125,9 +126,9 @@ public class CalendarDB {
         db.execSQL("INSERT INTO "+BENUTZER+" VALUES ('"+name+"', '0', '0','"+wgname+"','0');");
 
     }
-    public void insertFotoItem(String kommentar, byte[] image,String name ,String wgname){
-        db.execSQL("INSERT INTO "+FOTOWAND+ "("+KEY_KOMMENTAR+","+KEY_BILD+","+KEY_THUMB+","+KEY_NAME+","+KEY_NAMEWG+")" +
-                " VALUES ('"+kommentar+"', '"+image+"', '0','"+name+"','"+wgname+"');");
+    public void insertFotoItem(String kommentar, byte[] image,String name ,String wgname, String path){
+        db.execSQL("INSERT INTO "+FOTOWAND+ "("+KEY_KOMMENTAR+","+KEY_BILD+","+KEY_THUMB+","+KEY_NAME+","+KEY_NAMEWG+","+KEY_BILDPATH+")" +
+                " VALUES ('"+kommentar+"', '"+image+"', '0','"+name+"','"+wgname+"','"+path+"');");
 
     }
 
@@ -228,14 +229,15 @@ public class CalendarDB {
     public ArrayList<FotoItem> getAllFotos() {
         ArrayList<FotoItem> items = new ArrayList<FotoItem>();
         Cursor cursor = db.query(FOTOWAND, new String[] {
-                KEY_KOMMENTAR, KEY_BILD, KEY_NAME,KEY_THUMB}, null, null, null, null, null);
+                KEY_KOMMENTAR, KEY_BILD, KEY_NAME,KEY_THUMB,KEY_BILDPATH}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String kommentar = cursor.getString(0);
                 byte[] bild = cursor.getBlob(1);
                 String name = cursor.getString(2);
                 int thumb = cursor.getInt(3);
-                items.add(new FotoItem(kommentar,bild,name,thumb));
+                String path = cursor.getString(4);
+                items.add(new FotoItem(kommentar,bild,name,thumb,path));
 
             } while (cursor.moveToNext());
         }
@@ -336,7 +338,7 @@ public class CalendarDB {
         return name;
     }
 
-    //get Guthabane
+    //get Guthaben
 
     public double getMeinGuthaben(String name) {
         double guthaben = 0;
@@ -366,7 +368,7 @@ public class CalendarDB {
     }
 
     private class ToDoDBOpenHelper extends SQLiteOpenHelper {
-        // bei INstallieren der App werden die Tables erzeugt
+        // bei Installieren der App werden die Tables erzeugt
         private static final String CREATETASK = "create table "
                 + TERMINE + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_TASK
@@ -408,7 +410,7 @@ public class CalendarDB {
         private static final String CREATEIMAGEW = "create table "
                 + FOTOWAND + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_KOMMENTAR
-                + " text , "+ KEY_BILD +" longblob, "+KEY_THUMB+ " integer, "+KEY_NAME+" text, "+KEY_NAMEWG+ " text );";
+                + " text , "+ KEY_BILD +" longblob, "+KEY_THUMB+ " integer, "+KEY_NAME+" text, "+KEY_NAMEWG+ " text,"+KEY_BILDPATH+" text );";
 
         public ToDoDBOpenHelper(Context c, String dbname,
                                 SQLiteDatabase.CursorFactory factory, int version) {

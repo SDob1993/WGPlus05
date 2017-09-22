@@ -9,13 +9,15 @@ public class FotoItem extends PictureActivity{
     private byte[] image;
     private String name;
     private int thumbcount;
+    private String path;
 
 
-    public FotoItem(String commentary, byte[] image, String name, int thumbcount){
+    public FotoItem(String commentary, byte[] image, String name, int thumbcount, String path){
         this.commentary = commentary;
         this.image = image;
         this.thumbcount = thumbcount;
         this.name = name;
+        this.path = path;
     }
 
 
@@ -26,6 +28,8 @@ public class FotoItem extends PictureActivity{
     public byte[] getImage(){
         return image;
     }
+
+    public String getImagePath(){ return path; }
 
     public void addthumbUp(){
         thumbcount++;
