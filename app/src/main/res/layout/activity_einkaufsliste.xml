@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="ur.mi.android.wgplus05.Einkaufsliste_alt"
+    tools:context="ur.mi.android.wgplus05.Einkaufsliste2"
     android:id="@+id/activity_einkaufsliste_id"
 
     >
@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_weight="1"
-        android:scaleType = "centerCrop"
         android:scaleY="1.3"
         android:src="@drawable/paper"
+        android:scaleType="centerCrop"
         android:alpha="0.7"/>
 
     <LinearLayout

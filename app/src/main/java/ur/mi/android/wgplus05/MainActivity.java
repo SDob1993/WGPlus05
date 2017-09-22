@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static String wgname;
     private CalendarDB DB;
 
+    private static final int POPUP_DELAY_TIME = 2000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                checkFirstRun();
-            }
-        }, 2000);
+                checkFirstRun(); }}, POPUP_DELAY_TIME);
 
     }
 
