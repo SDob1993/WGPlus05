@@ -163,6 +163,7 @@ public class CalendarDB {
         db.delete(PUTZPLAN, toDelete, deleteArguments);
 
     }
+    //remove Methode für EInkaufsitem
     public void removeEinkaufItem(EinkaufsItem item) {
 
         String toDelete = KEY_NAME + "=?";
@@ -170,7 +171,7 @@ public class CalendarDB {
         db.delete(EINKAUF, toDelete, deleteArguments);
 
     }
-
+    //remove Methode für Mitbewohner
     public void removeMitbewohner(String name) {
 
         String toDelete = KEY_NAME + "=?";
@@ -365,6 +366,7 @@ public class CalendarDB {
     }
 
     private class ToDoDBOpenHelper extends SQLiteOpenHelper {
+        // bei INstallieren der App werden die Tables erzeugt
         private static final String CREATETASK = "create table "
                 + TERMINE + " (" + KEY_ID
                 + " integer primary key autoincrement, " + KEY_TASK
@@ -388,7 +390,7 @@ public class CalendarDB {
                 + EKHIST + " (" + KEY_ID
                 + " integer primary key autoincrement , " + KEY_NAMEUSER
                 + " text, " + KEY_KOSTEN + " double, " + KEY_NAME
-                + " text );";
+                + " text, "+KEY_NAMEWG+" );";
 
         private static final String CREATEGRUPPE = "create table "
                 + DIESERBENUTZER + " (" + KEY_ID
@@ -416,6 +418,7 @@ public class CalendarDB {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+            //exec für die Create Befehle
             db.execSQL(CREATEGRUPPE);
             db.execSQL(CREATEUSER);
             db.execSQL(CREATETASK);

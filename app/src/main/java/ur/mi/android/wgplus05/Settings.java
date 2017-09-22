@@ -45,6 +45,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         initDatabase();
+        //get Username aus DB
         setTitle("#"+SEDB.getWGName());
 
 
@@ -81,6 +82,7 @@ public class Settings extends AppCompatActivity {
     }
 
     private void initListeners() {
+        //TextViews auf Date in DB setzen
         avatar = (TextView) findViewById(R.id.foto_avatar);
         avatar.setText(SEDB.getUserName());
         textView2 = (TextView) findViewById(R.id.TextViewSettings2);
@@ -149,8 +151,6 @@ public class Settings extends AppCompatActivity {
 
     //Pup-Up to set UserName
     public void showPopupName(View anchorView) {
-
-        // get a reference to the already created main layout
 
 
         // inflate the layout of the popup window

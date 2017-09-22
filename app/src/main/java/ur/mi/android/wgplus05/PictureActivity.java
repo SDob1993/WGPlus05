@@ -185,8 +185,6 @@ public class PictureActivity extends AppCompatActivity {
 
     public void showPopupImage() {
 
-        // get a reference to the already created main layout
-
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -216,15 +214,17 @@ public class PictureActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                image.compress(Bitmap.CompressFormat.PNG,10, stream);
-                byte[] byteArray = stream.toByteArray();*/
-                int size = image.getRowBytes() * image.getHeight();
+                //komprimieren der Bitmap
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.PNG,1, stream);
+                byte[] byteArray = stream.toByteArray();
+                /*int size = image.getRowBytes() * image.getHeight();
                 ByteBuffer byteBuffer = ByteBuffer.allocate(size);
                 image.copyPixelsToBuffer(byteBuffer);
-                byte[] byteArray = byteBuffer.array();
+                byte[] byteArray = byteBuffer.array();*/
                 String nameuser = FDB.getUserName();
                 String namewg = FDB.getWGName();
+                //erstellen eines neuen Fotoitems mit bytearray
                 FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg);
                 FotoItem fotoItem = new FotoItem(editText.getText().toString(), byteArray,nameuser,0);
                 posts.add(0, fotoItem);

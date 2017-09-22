@@ -40,9 +40,11 @@ public class Finanzen extends AppCompatActivity {
         guthaben.setTypeface(myTypeface);
         guthabenAnzeige = (TextView)findViewById(R.id.guthabenAnzeige);
         guthabenAnzeige.setTypeface(myTypeface);
+        //balance ist Guthaben des Mitbewohners abhängig von den Gesamt-Ausgaben undder Anzahl der Mitbewohner
         double balance = DB.getMeinGuthaben(name1)-DB.getGuthabenGes()/DB.getAnzahlMitbewohner();
-        guthaben.setText(""+Double.toString(Math.round(balance))+"€"); //Double.toString(Math.round(DB.getGuthaben()))
+        guthaben.setText(""+Double.toString(Math.round(balance))+"€");
         drueber = (TextView) findViewById(R.id.drueber);
+        //setzten des Texts auf die Ausgaben des Users
         drueber.setText(Double.toString(Math.round(DB.getMeinGuthaben(name1))));
         eingekaufteItems = (ListView) findViewById(R.id.bought_items);
         aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
@@ -62,15 +64,5 @@ public class Finanzen extends AppCompatActivity {
     }
 
 
-    public double getGuthabenDouble(){
-        return guthabenDouble;
-    }
 
-    public void addGuthabenDouble(double guthabenPlus){
-        guthabenDouble = guthabenDouble + guthabenPlus;
-    }
-
-    public void calculateAverageSum(){
-
-    }
 }

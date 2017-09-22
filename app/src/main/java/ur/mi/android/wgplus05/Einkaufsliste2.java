@@ -76,10 +76,6 @@ public class Einkaufsliste2 extends AppCompatActivity {
         });}
 
     public void showPopupAdd(View anchorView) {
-
-        // get a reference to the already created main layout
-
-
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.layout_user_popup_einkaufsliste, null);
@@ -117,9 +113,6 @@ public class Einkaufsliste2 extends AppCompatActivity {
 
 
     public void showPopupRemove(final int position) {
-
-        // get a reference to the already created main layout
-
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);

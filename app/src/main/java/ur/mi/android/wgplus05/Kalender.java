@@ -82,7 +82,7 @@ public class Kalender extends AppCompatActivity {
 
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-
+        //init der Picker und Exittext und setzen der Values
         final EditText editText1 = (EditText) popupView.findViewById(R.id.edit_task);
         final NumberPicker daypicker = (NumberPicker) popupView.findViewById(R.id.edit_day);
         daypicker.setMaxValue(31);
@@ -151,7 +151,7 @@ public class Kalender extends AppCompatActivity {
         tasks_adapter = new CalendarAdapter(this, tasks);
         list.setAdapter(tasks_adapter);
     }
-
+    //remove und entfernen aus DB
     private void removeTaskAtPosition(int position) {
         if (tasks.get(position) != null) {
             toDoDB.removeToDoItem(tasks.get(position));
