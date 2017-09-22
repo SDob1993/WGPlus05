@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
         SEDB = new CalendarDB(context);
 
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -84,6 +86,8 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             commentBox.setAdapter(commentaryAdapter);
             Log.d("imagedb", Arrays.toString(fotoItem.getImage()));
             Bitmap bitmap = BitmapFactory.decodeByteArray(fotoItem.getImage(),0,fotoItem.getImage().length);
+
+
             foto.setImageBitmap(bitmap);
 
             thumbCount.setText(Integer.toString(fotoItem.getThumbcount()));

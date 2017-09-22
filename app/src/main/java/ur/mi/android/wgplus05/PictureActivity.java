@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -28,6 +29,8 @@ import android.widget.PopupWindow;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import static android.R.attr.bitmap;
 
 
 public class PictureActivity extends AppCompatActivity {
@@ -51,10 +54,12 @@ public class PictureActivity extends AppCompatActivity {
         initPostList();
         initUI();
         initDB();
-        mainLayout = (FrameLayout) findViewById(R.id.fotowand);
+        initLayout();
         refreshArrayList();
 
     }
+
+    private void initLayout(){mainLayout = (FrameLayout) findViewById(R.id.fotowand);}
 
     private void initCamera() {
         camera = new Camera(this);
@@ -125,6 +130,8 @@ public class PictureActivity extends AppCompatActivity {
         }
     }
 
+    //checkt ob ´die Berechtigung für die Aufnahme vorhanden sind. Wenn nicht wird ein PopUp geöffnet um diese zuzulassen
+
     private void checkPermission() {
         int permissionCheckCamera = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA);
@@ -133,13 +140,7 @@ public class PictureActivity extends AppCompatActivity {
         if (permissionCheckWriteExStorage == PackageManager.PERMISSION_DENIED || permissionCheckCamera == PackageManager.PERMISSION_DENIED) {
 
                 Log.d("photo", "permission ist nicht da ");
-
-                // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_CAMERA);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
 
             }
             else Log.d("photo", "permission ist schon da "); takePicture();
@@ -215,8 +216,9 @@ public class PictureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                image.compress(Bitmap.CompressFormat.JPEG, 10, stream);
                 byte[] byteArray = stream.toByteArray();
+
                 String nameuser = FDB.getUserName();
                 String namewg = FDB.getWGName();
                 FDB.insertFotoItem(editText.getText().toString(), byteArray, nameuser,namewg);
@@ -230,6 +232,8 @@ public class PictureActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 }
