@@ -70,7 +70,7 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
             ImageView foto = (ImageView) v.findViewById(R.id.foto_view);
             TextView user_commentary = (TextView) v.findViewById(R.id.foto_user_commentary);
             final ImageButton thumbUp = (ImageButton) v.findViewById(R.id.foto_thumb_up);
-            final ImageButton commentaryButton = (ImageButton) v.findViewById(R.id.foto_commentary_button);
+         //   final ImageButton commentaryButton = (ImageButton) v.findViewById(R.id.foto_commentary_button);
             final TextView thumbCount = (TextView) v.findViewById(R.id.foto_thumbcount);
             final EditText commentary = (EditText) v.findViewById(R.id.commentary_box);
             final ImageView shareButton = (ImageView) v.findViewById(R.id.foto_share_button);
@@ -106,7 +106,7 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
                 }
             });
 
-            commentaryButton.setOnClickListener(new View.OnClickListener() {
+            /*commentaryButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     linearLayout.setVisibility(View.VISIBLE);
@@ -120,7 +120,7 @@ public class FotoItemAdapter extends ArrayAdapter<FotoItem> {
                         }
                     });
                 }
-        });
+        }); */
 
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
